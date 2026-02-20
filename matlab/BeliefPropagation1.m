@@ -26,6 +26,8 @@ end
 % Compute smoothness cost
 d = 0:dispLevels-1;
 smoothnessCost = lambda*min(abs(d-d'),threshold);
+smoothnessCost3d_1(1,:,:) = smoothnessCost(:,:);
+smoothnessCost3d_2(:,1,:) = smoothnessCost(:,:);
 
 % Initialize messages
 msgUp = zeros(rows,cols,dispLevels);
@@ -39,48 +41,32 @@ energy = zeros(iterations,1);
 % Start iterations
 for i = 1:iterations
     
-    % Horizontal forward pass
-    for y = 1:rows
-        for x = 1:cols-1
-            % Send message right
-            msg = squeeze(dataCost(y,x,:)+msgUp(y,x,:)+msgDown(y,x,:)+msgLeft(y,x,:));
-            msg = min(msg+smoothnessCost);
-            msg = msg-min(msg); %normalize message
-            msgLeft(y,x+1,:) = msg;
-        end
+    % Horizontal forward pass - Send messages right
+    for x = 1:cols-1
+        msg = dataCost(:,x,:)+msgUp(:,x,:)+msgDown(:,x,:)+msgLeft(:,x,:);
+        msg = min(msg+smoothnessCost3d_1,[],3);
+        msgLeft(:,x+1,:) = msg-min(msg,[],2); %normalize message
     end
     
-    % Horizontal backward pass
-    for y = 1:rows
-        for x = cols:-1:2
-            % Send message left
-            msg = squeeze(dataCost(y,x,:)+msgUp(y,x,:)+msgDown(y,x,:)+msgRight(y,x,:));
-            msg = min(msg+smoothnessCost);
-            msg = msg-min(msg); %normalize message
-            msgRight(y,x-1,:) = msg;
-        end
+    % Horizontal backward pass - Send messages left
+    for x = cols:-1:2
+        msg = dataCost(:,x,:)+msgUp(:,x,:)+msgDown(:,x,:)+msgRight(:,x,:);
+        msg = min(msg+smoothnessCost3d_1,[],3);
+        msgRight(:,x-1,:) = msg-min(msg,[],2); %normalize message
     end
     
-    % Vertical forward pass
-    for x = 1:cols
-        for y = 1:rows-1
-            % Send message down
-            msg = squeeze(dataCost(y,x,:)+msgUp(y,x,:)+msgRight(y,x,:)+msgLeft(y,x,:));
-            msg = min(msg+smoothnessCost);
-            msg = msg-min(msg); %normalize message
-            msgUp(y+1,x,:) = msg;
-        end
+    % Vertical forward pass - Send messages down
+    for y = 1:rows-1
+        msg = dataCost(y,:,:)+msgUp(y,:,:)+msgRight(y,:,:)+msgLeft(y,:,:);
+        msg = min(msg+smoothnessCost3d_2,[],3)';
+        msgUp(y+1,:,:) = msg-min(msg,[],2); %normalize message
     end
     
-    % Vertical backward pass
-    for x = 1:cols
-        for y = rows:-1:2
-            % Send message up
-            msg = squeeze(dataCost(y,x,:)+msgDown(y,x,:)+msgRight(y,x,:)+msgLeft(y,x,:));
-            msg = min(msg+smoothnessCost);
-            msg = msg-min(msg); %normalize message
-            msgDown(y-1,x,:) = msg;
-        end
+    % Vertical backward pass - Send messages up
+    for y = rows:-1:2
+        msg = dataCost(y,:,:)+msgDown(y,:,:)+msgRight(y,:,:)+msgLeft(y,:,:);
+        msg = min(msg+smoothnessCost3d_2,[],3)';
+        msgDown(y-1,:,:) = msg-min(msg,[],2); %normalize message
     end
     
     % Compute belief
@@ -99,7 +85,7 @@ for i = 1:iterations
     linInd = sub2ind(size(smoothnessCost),row,col);
     smoothnessEnergy = sum(smoothnessCost(linInd));
     energy(i) = dataEnergy+smoothnessEnergy;
-
+    
     % Update disparity image
     scaleFactor = 256/dispLevels;
     disparityImg = uint8(disparityMap*scaleFactor);

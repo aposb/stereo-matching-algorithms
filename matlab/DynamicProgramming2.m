@@ -23,28 +23,26 @@ end
 d = 0:dispLevels-1;
 smoothnessCost = Pocc*abs(d-d');
 %smoothnessCost = Pocc*min(abs(d-d'),2);
+smoothnessCost3d(1,:,:) = smoothnessCost(:,:);
 
 D = zeros(rows,cols,dispLevels); % Minimum costs
 T = zeros(rows,cols,dispLevels); % Transitions
 dispMap = zeros(rows,cols);
 
 % Forward step
-for y = 1:rows
-    for x = 2:cols
-        cost = squeeze(C(y,x-1,:)+D(y,x-1,:));
-        [cost,ind] = min(cost+smoothnessCost);
-        D(y,x,:) = cost;
-        T(y,x,:) = ind;
-    end
+for x = 2:cols
+    cost = C(:,x-1,:)+D(:,x-1,:);
+    [cost,ind] = min(cost+smoothnessCost3d,[],3);
+    D(:,x,:) = cost;
+    T(:,x,:) = ind;
 end
 
 % Backtracking
-for y = 1:rows
-    d = 1;
-    for x = cols:-1:1
-        dispMap(y,x) = d-1;
-        d = T(y,x,d);
-    end
+d = ones(rows,1);
+for x = cols:-1:1
+    dispMap(:,x) = d-1;
+    linInd = sub2ind(size(T),(1:rows)',x*ones(rows,1),d);
+    d = T(linInd);
 end
 
 % Convert disparity map to image
