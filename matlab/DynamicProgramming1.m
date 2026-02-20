@@ -1,38 +1,53 @@
-dispLevels = 16;
-Pocc = 10; % Occlusion penalty
-Pdisc = 3; % Vertical discontinuity penalty
+% Stereo Matching using Dynamic Programming (with Left-Right Axes DSI)
+% Computes a disparity map from a rectified stereo pair using Dynamic Programming
 
-% Read stereo image
-left = rgb2gray(imread('Left.png'));
-right = rgb2gray(imread('Right.png'));
+% Set parameters
+dispLevels = 16;% disparity range: 0 to dispLevels-1
+Pocc = 5; %occlusion penalty
+Pdisc = 1; %vertical discontinuity penalty
 
-% Use gaussian filter
-left = imgaussfilt(left,0.6,'FilterSize',5);
-right = imgaussfilt(right,0.6,'FilterSize',5);
+% Define data cost computation
+dataCostComputation = @(differences) abs(differences); %absolute differences
+%dataCostComputation = @(differences) differences.^2; %square differences
 
-% Get image size
-[rows,cols] = size(left);
+% Predefined smoothness cost computation: Pocc*abs(differences)
 
-D = Inf(cols+1,cols+1); % Minimum costs
-T = zeros(cols+1,cols+1); % Transitions
+% Load left and right images in grayscale
+leftImg = rgb2gray(imread('left.png'));
+rightImg = rgb2gray(imread('right.png'));
+
+% Apply a Gaussian filter
+leftImg = imgaussfilt(leftImg,0.6,'FilterSize',5);
+rightImg = imgaussfilt(rightImg,0.6,'FilterSize',5);
+
+% Get the size
+[rows,cols] = size(leftImg);
+
+% Convert to int32
+leftImg = int32(leftImg);
+rightImg = int32(rightImg);
+
+D = intmax*ones(cols+1,cols+1,'int32'); %minimum costs
+T = zeros(cols+1,cols+1,'int32'); %transitions
 dispMap = zeros(rows,cols);
 
 % For each scanline
 for y = 1:rows
 
     % Compute matching cost
-    L = double(left(y,:)); % Left scanline
-    R = double(right(y,:)); % Right scanline
-    C = abs(L-R'); % Matching cost
-    
+    L = leftImg(y,:); %left scanline
+    R = rightImg(y,:); %right scanline
+    C = dataCostComputation(L-R.'); %matching cost
+
+    % Keep previous transitions
     T0 = T;
 
-    % Forward step
-    D(1,1:dispLevels) = (0:dispLevels-1) * Pocc;
+    % Compute DP table (forward pass)
+    D(1,1:dispLevels) = (0:dispLevels-1)*Pocc;
     T(1,2:dispLevels) = 2;
     for j = 2:cols+1
         for i = j:min(j+dispLevels-1,cols+1)
-            % Compute costs
+            % Compute cost for match and costs for occlusions
             c1 = D(j-1,i-1) + C(j-1,i-1);
             c2 = D(j,i-1) + Pocc;
             c3 = D(j-1,i) + Pocc;
@@ -52,18 +67,18 @@ for y = 1:rows
             % Find minimum cost
             if c1 <= c2 && c1 <= c3
                 D(j,i) = c1;
-                T(j,i) = 1; % Match
+                T(j,i) = 1; %match
             elseif c2 <= c3
                 D(j,i) = c2;
-                T(j,i) = 2; % Left occlusion
+                T(j,i) = 2; %left occlusion
             else
                 D(j,i) = c3;
-                T(j,i) = 3; % Right occlusion
+                T(j,i) = 3; %right occlusion
             end
         end
     end
 
-    % Backtracking
+    % Compute disparity map (backtracking)
     i = cols+1;
     j = cols+1;
     while i > 1
@@ -72,7 +87,7 @@ for y = 1:rows
             i = i-1;
             j = j-1;
         elseif T(j,i) == 2
-            %dispMap(y,i-1) = i-j; % disparity map without occlusion
+            dispMap(y,i-1) = i-j; %comment this line for occlusion handling
             i = i-1;
         elseif T(j,i) == 3
             j = j-1;
@@ -80,12 +95,12 @@ for y = 1:rows
     end
 end
 
-% Convert disparity map to image
+% Normalize the disparity map for display
 scaleFactor = 256/dispLevels;
-dispImage = uint8(dispMap*scaleFactor);
+dispImg = uint8(dispMap*scaleFactor);
 
-% Show disparity image
-imshow(dispImage)
+% Show disparity map
+figure; imshow(dispImg)
 
-% Save disparity image
-imwrite(dispImage,'Disparity.png')
+% Save disparity map
+imwrite(dispImg,'disparity.png')
