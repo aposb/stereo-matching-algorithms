@@ -1,6 +1,6 @@
 # Stereo Matching Algorithms
 
-Optimized (very fast) stereo matching algorithms in MATLAB. It includes implementations of Block Matching, Dynamic Programming, Semi-Global Matching, Semi-Global Block Matching and Belief Propagation.
+Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includes implementations of Block Matching, Dynamic Programming, Semi-Global Matching, Semi-Global Block Matching and Belief Propagation.
 
 ## Features
 
@@ -23,18 +23,28 @@ Optimized (very fast) stereo matching algorithms in MATLAB. It includes implemen
 - BP with synchronous message update schedule
 - BP with synchronous message update schedule (alternative approach)
 
+The algorithms are implemented in both MATLAB and Python.
+
 All algorithms are optimized for performance using matrix operations and other techniques.
 
 ## Installation
 
 Download the project as ZIP file, unzip it, and run the scripts.
 
+### Python Requirements
+
+- NumPy
+- Matplotlib
+- OpenCV (`opencv-python`)
+
 ## Usage
 
 A stereo matching algorithm works with stereo image pairs to produce disparity maps.
-This project contains eight MATLAB scripts, each implementing a stereo matching algorithm. The files `left.png` and `right.png` contain the stereo image pair used as input.
+This project contains MATLAB and Python scripts, each implementing a stereo matching algorithm. The files `left.png` and `right.png` contain the stereo image pair used as input.
 To use a different stereo pair, replace these two images with your own. In this case, you must also adjust the **disparity levels** parameter in the script you are running.
 You may optionally modify other parameters as needed. If the input images contain little or no noise, it is recommended not to use the Gaussian filter.
+
+The results between MATLAB and Python implementation are similar.
 
 ## Results
 
