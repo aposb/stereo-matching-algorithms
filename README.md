@@ -50,7 +50,7 @@ The results between MATLAB and Python implementation are similar.
 
 Below are the disparity maps produced from the **Tsukuba stereo pair**.
 
-![Tsukuba Stereo Image](left.png) ![Tsukuba Stereo Image](right.png)
+![Tsukuba Stereo Image](matlab/left.png) ![Tsukuba Stereo Image](matlab/right.png)
 
 ### Block Matching
 
