@@ -1,4 +1,4 @@
-# Stereo Matching Algorithms
+# Stereo Matching Algorithms in MATLAB and Python
 
 Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includes implementations of Block Matching, Dynamic Programming, Semi-Global Matching, Semi-Global Block Matching and Belief Propagation.
 
