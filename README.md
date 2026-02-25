@@ -19,9 +19,9 @@ Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includ
 
 ### Three different versions of Belief Propagation
 
-- BP with accelerated message update schedule
-- BP with synchronous message update schedule
-- BP with synchronous message update schedule (different approach)
+- BP with *Accelerated* Message Update Schedule
+- BP with *Synchronous* Message Update Schedule
+- BP with *Synchronous* Message Update Schedule (different approach)
 
 The algorithms are implemented in both MATLAB and Python.
 
@@ -31,9 +31,9 @@ All algorithms are optimized for performance using matrix operations and other t
 
 ### Core
 
-- **[matlab/](./matlab/)** – Stereo matching algorithms implemented in MATLAB  
-- **[python/](./python/)** – Stereo matching algorithms implemented in Python  
-- **[results/](./results/)** – Disparity maps produced by the stereo matching algorithms  
+- **[matlab/](./matlab/)** – Stereo Matching Algorithms in MATLAB  
+- **[python/](./python/)** – Stereo Matching Algorithms in Python  
+- **[results/](./results/)** – Disparity Maps  
 
 ### Inside `matlab/`
 
@@ -42,9 +42,9 @@ All algorithms are optimized for performance using matrix operations and other t
 - **[DynamicProgramming2.m](./matlab/DynamicProgramming2.m)** – Dynamic Programming with Left–Disparity Axes DSI  
 - **[SemiGlobalMatching.m](./matlab/SemiGlobalMatching.m)** – Semi-Global Matching  
 - **[SemiGlobalBlockMatching.m](./matlab/SemiGlobalBlockMatching.m)** – Semi-Global Block Matching  
-- **[BeliefPropagation1.m](./matlab/BeliefPropagation1.m)** – Belief Propagation with accelerated message update schedule  
-- **[BeliefPropagation2.m](./matlab/BeliefPropagation2.m)** – Belief Propagation with synchronous message update schedule  
-- **[BeliefPropagation3.m](./matlab/BeliefPropagation3.m)** – Belief Propagation with synchronous message update schedule (different approach)  
+- **[BeliefPropagation1.m](./matlab/BeliefPropagation1.m)** – Belief Propagation with *Accelerated* Message Update Schedule  
+- **[BeliefPropagation2.m](./matlab/BeliefPropagation2.m)** – Belief Propagation with *Synchronous* Message Update Schedule  
+- **[BeliefPropagation3.m](./matlab/BeliefPropagation3.m)** – Belief Propagation with *Synchronous* Message Update Schedule (different approach)  
 
 ### Inside `python/`
 
@@ -53,9 +53,9 @@ All algorithms are optimized for performance using matrix operations and other t
 - **[DynamicProgramming2.py](./python/DynamicProgramming2.py)** – Dynamic Programming with Left–Disparity Axes DSI  
 - **[SemiGlobalMatching.py](./python/SemiGlobalMatching.py)** – Semi-Global Matching  
 - **[SemiGlobalBlockMatching.py](./python/SemiGlobalBlockMatching.py)** – Semi-Global Block Matching  
-- **[BeliefPropagation1.py](./python/BeliefPropagation1.py)** – Belief Propagation with accelerated message update schedule  
-- **[BeliefPropagation2.py](./python/BeliefPropagation2.py)** – Belief Propagation with synchronous message update schedule  
-- **[BeliefPropagation3.py](./python/BeliefPropagation3.py)** – Belief Propagation with synchronous message update schedule (different approach)  
+- **[BeliefPropagation1.py](./python/BeliefPropagation1.py)** – Belief Propagation with *Accelerated* Message Update Schedule  
+- **[BeliefPropagation2.py](./python/BeliefPropagation2.py)** – Belief Propagation with *Synchronous* Message Update Schedule  
+- **[BeliefPropagation3.py](./python/BeliefPropagation3.py)** – Belief Propagation with *Synchronous* Message Update Schedule (different approach)  
 
 ## Installation
 
