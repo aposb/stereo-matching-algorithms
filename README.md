@@ -21,11 +21,41 @@ Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includ
 
 - BP with accelerated message update schedule
 - BP with synchronous message update schedule
-- BP with synchronous message update schedule (alternative approach)
+- BP with synchronous message update schedule (different approach)
 
 The algorithms are implemented in both MATLAB and Python.
 
 All algorithms are optimized for performance using matrix operations and other techniques.
+
+## Project Structure
+
+### Core
+
+- **[matlab/](./matlab/)** – Stereo matching algorithms implemented in MATLAB  
+- **[python/](./python/)** – Stereo matching algorithms implemented in Python  
+- **[results/](./results/)** – Disparity maps produced by the stereo matching algorithms  
+
+### Inside `matlab/`
+
+- **[BlockMatching.m](./matlab/BlockMatching.m)** – Block Matching  
+- **[DynamicProgramming1.m](./matlab/DynamicProgramming1.m)** – Dynamic Programming with Left–Right Axes DSI  
+- **[DynamicProgramming2.m](./matlab/DynamicProgramming2.m)** – Dynamic Programming with Left–Disparity Axes DSI  
+- **[SemiGlobalMatching.m](./matlab/SemiGlobalMatching.m)** – Semi-Global Matching  
+- **[SemiGlobalBlockMatching.m](./matlab/SemiGlobalBlockMatching.m)** – Semi-Global Block Matching  
+- **[BeliefPropagation1.m](./matlab/BeliefPropagation1.m)** – Belief Propagation with accelerated message update schedule  
+- **[BeliefPropagation2.m](./matlab/BeliefPropagation2.m)** – Belief Propagation with synchronous message update schedule  
+- **[BeliefPropagation3.m](./matlab/BeliefPropagation3.m)** – Belief Propagation with synchronous message update schedule (different approach)  
+
+### Inside `python/`
+
+- **[BlockMatching.py](./python/BlockMatching.py)** – Block Matching  
+- **[DynamicProgramming1.py](./python/DynamicProgramming1.py)** – Dynamic Programming with Left–Right Axes DSI  
+- **[DynamicProgramming2.py](./python/DynamicProgramming2.py)** – Dynamic Programming with Left–Disparity Axes DSI  
+- **[SemiGlobalMatching.py](./python/SemiGlobalMatching.py)** – Semi-Global Matching  
+- **[SemiGlobalBlockMatching.py](./python/SemiGlobalBlockMatching.py)** – Semi-Global Block Matching  
+- **[BeliefPropagation1.py](./python/BeliefPropagation1.py)** – Belief Propagation with accelerated message update schedule  
+- **[BeliefPropagation2.py](./python/BeliefPropagation2.py)** – Belief Propagation with synchronous message update schedule  
+- **[BeliefPropagation3.py](./python/BeliefPropagation3.py)** – Belief Propagation with synchronous message update schedule (different approach)  
 
 ## Installation
 
