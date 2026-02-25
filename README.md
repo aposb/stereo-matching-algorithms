@@ -16,9 +16,9 @@ Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includ
 
 - Three different versions of Belief Propagation
 
-- All algorithms are implemented in both MATLAB and Python.
+- All algorithms are implemented in both MATLAB and Python
 
-- The algorithms are optimized for performance using matrix operations and other techniques.
+- The algorithms are optimized for performance using matrix operations and other techniques
 
 ## Project Structure
 
@@ -107,7 +107,6 @@ The two different approaches to Belief Propagation with Synchronous message upda
 
 ## Useful Links
 
-- Project homepage: -
 - Project repository: https://github.com/aposb/stereo-matching-algorithms
 
 ## License
