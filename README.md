@@ -4,28 +4,21 @@ Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includ
 
 ## Features
 
-### Multiple stereo matching algorithms
+- Multiple stereo matching algorithms
 
-- **Block Matching (BM)**
-- **Dynamic Programming (DP)**
-- **Semi-Global Matching (SGM)**
-- **Semi-Global Block Matching (SGBM)**
-- **Belief Propagation (BP)**
+  - **Block Matching (BM)**
+  - **Dynamic Programming (DP)**
+  - **Semi-Global Matching (SGM)**
+  - **Semi-Global Block Matching (SGBM)**
+  - **Belief Propagation (BP)**
 
-### Two different versions of Dynamic Programming
+- Two different versions of Dynamic Programming
 
-- DP with Left–Right Axes DSI
-- DP with Left–Disparity Axes DSI
+- Three different versions of Belief Propagation
 
-### Three different versions of Belief Propagation
+- All algorithms are implemented in both MATLAB and Python.
 
-- BP with *Accelerated* Message Update Schedule
-- BP with *Synchronous* Message Update Schedule
-- BP with *Synchronous* Message Update Schedule (different approach)
-
-The algorithms are implemented in both MATLAB and Python.
-
-All algorithms are optimized for performance using matrix operations and other techniques.
+- The algorithms are optimized for performance using matrix operations and other techniques.
 
 ## Project Structure
 
