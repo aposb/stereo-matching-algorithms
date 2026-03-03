@@ -26,7 +26,8 @@ Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includ
 
 | Filename | Description |
 | --- | --- |
-| **[`BlockMatching.m`](./matlab/BlockMatching.m)** | Block Matching |
+| **[`BlockMatching1.m`](./matlab/BlockMatching1.m)** | Block Matching using Sum of Absolute Differences |
+| **[`BlockMatching2.m`](./matlab/BlockMatching2.m)** | Block Matching using Census Transformation |
 | **[`DynamicProgramming1.m`](./matlab/DynamicProgramming1.m)** | Dynamic Programming with Left–Right Axes DSI |
 | **[`DynamicProgramming2.m`](./matlab/DynamicProgramming2.m)** | Dynamic Programming with Left–Disparity Axes DSI |
 | **[`SemiGlobalMatching.m`](./matlab/SemiGlobalMatching.m)** | Semi-Global Matching |
@@ -41,7 +42,8 @@ Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includ
 
 | Filename | Description |
 | --- | --- |
-| **[`BlockMatching.py`](./python/BlockMatching.py)** | Block Matching |
+| **[`BlockMatching1.py`](./python/BlockMatching1.py)** | Block Matching using Sum of Absolute Differences |
+| **[`BlockMatching2.py`](./python/BlockMatching2.py)** | Block Matching using Census Transformation |
 | **[`DynamicProgramming1.py`](./python/DynamicProgramming1.py)** | Dynamic Programming with Left–Right Axes DSI |
 | **[`DynamicProgramming2.py`](./python/DynamicProgramming2.py)** | Dynamic Programming with Left–Disparity Axes DSI |
 | **[`SemiGlobalMatching.py`](./python/SemiGlobalMatching.py)** | Semi-Global Matching |
@@ -73,11 +75,15 @@ The results between MATLAB and Python implementation are similar.
 
 Below are the disparity maps produced from the **Tsukuba stereo pair**.
 
-![Tsukuba Stereo Image](matlab/left.png) ![Tsukuba Stereo Image](matlab/right.png)
+![Tsukuba Left](matlab/left.png) ![Tsukuba Right](matlab/right.png)
 
-### Block Matching
+### Block Matching (SAD)
 
-![Block Matching Disparity Map](results/disparityBM1.png)
+![Block Matching (SAD) Disparity Map](results/disparityBM1.png)
+
+### Block Matching (Census)
+
+![Block Matching (Census) Disparity Map](results/disparityBM2.png)
 
 ### Dynamic Programming (Left-Right)
 
@@ -97,11 +103,11 @@ Below are the disparity maps produced from the **Tsukuba stereo pair**.
 
 ### Belief Propagation (Accelerated)
 
-![Belief Propagation Accelerated Disparity Map](results/disparityBP1.png)
+![Belief Propagation (Accelerated) Disparity Map](results/disparityBP1.png)
 
 ### Belief Propagation (Synchronous)
 
-![Belief Propagation Synchronous Disparity Map](results/disparityBP2.png)
+![Belief Propagation (Synchronous) Disparity Map](results/disparityBP2.png)
 
 The two different approaches to Belief Propagation with Synchronous message update schedule produce same results.
 
