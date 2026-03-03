@@ -77,31 +77,31 @@ Below are the disparity maps produced from the **Tsukuba stereo pair**.
 
 ### Block Matching
 
-![Block Matching Disparity Map](results/disparity0.png)
+![Block Matching Disparity Map](results/disparityBM1.png)
 
 ### Dynamic Programming (Left-Right)
 
-![Dynamic Programming (Left-Right) Disparity Map](results/disparity1.png)
+![Dynamic Programming (Left-Right) Disparity Map](results/disparityDP1.png)
 
 ### Dynamic Programming (Left-Disparity)
 
-![Dynamic Programming (Left-Disparity) Disparity Map](results/disparity2.png)
+![Dynamic Programming (Left-Disparity) Disparity Map](results/disparityDP2.png)
 
 ### Semi-Global Matching
 
-![Semi-Global Matching Disparity Map](results/disparity3.png)
+![Semi-Global Matching Disparity Map](results/disparitySGM.png)
 
 ### Semi-Global Block Matching
 
-![Semi-Global Block Matching Disparity Map](results/disparity4.png)
+![Semi-Global Block Matching Disparity Map](results/disparitySGBM.png)
 
 ### Belief Propagation (Accelerated)
 
-![Belief Propagation Accelerated Disparity Map](results/disparity5.png)
+![Belief Propagation Accelerated Disparity Map](results/disparityBP1.png)
 
 ### Belief Propagation (Synchronous)
 
-![Belief Propagation Synchronous Disparity Map](results/disparity6.png)
+![Belief Propagation Synchronous Disparity Map](results/disparityBP2.png)
 
 The two different approaches to Belief Propagation with Synchronous message update schedule produce same results.
 
