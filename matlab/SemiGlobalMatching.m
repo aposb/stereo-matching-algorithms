@@ -25,11 +25,13 @@ rightImg = imgaussfilt(rightImg,0.6,'FilterSize',5);
 [rows,cols] = size(leftImg);
 
 % Compute pixel-based matching cost (data cost)
-rightImgShifted = zeros(rows,cols,dispLevels,'int32');
+rightImgExpanded = zeros(rows,cols+dispLevels-1,'int32');
+rightImgExpanded(:,dispLevels:end) = rightImg;
+dataCost = zeros(rows,cols,dispLevels,'int32');
 for d = 0:dispLevels-1
-    rightImgShifted(:,d+1:end,d+1) = rightImg(:,1:end-d);
+    rightImgShifted = rightImgExpanded(:,dispLevels-d:cols+dispLevels-1-d);
+    dataCost(:,:,d+1) = dataCostComputation(int32(leftImg)-rightImgShifted);
 end
-dataCost = dataCostComputation(int32(leftImg)-rightImgShifted);
 
 % Compute smoothness cost
 d = 0:dispLevels-1;
