@@ -29,10 +29,12 @@ rightImg = cv.GaussianBlur(rightImg,(5,5),0.6)
 (rows,cols) = leftImg.shape
 
 # Compute pixel-based matching cost (data cost)
-rightImgShifted = np.zeros((rows,cols,dispLevels),dtype=np.int32)
+rightImgExpanded = np.zeros((rows,cols+dispLevels-1),dtype=np.int32)
+rightImgExpanded[:,dispLevels-1:] = rightImg
+dataCost = np.zeros((rows,cols,dispLevels),dtype=np.int32)
 for d in range(dispLevels):
-    rightImgShifted[:,d:,d] = rightImg[:,:cols-d]
-dataCost = dataCostComputation(leftImg[:,:,np.newaxis]-rightImgShifted)
+    rightImgShifted = rightImgExpanded[:,dispLevels-1-d:cols+dispLevels-1-d]
+    dataCost[:,:,d] = dataCostComputation(leftImg-rightImgShifted)
 
 # Compute smoothness cost
 d = np.arange(dispLevels)
