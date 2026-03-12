@@ -27,7 +27,7 @@ Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includ
 | Filename | Description |
 | --- | --- |
 | **[`stereoBM_SAD.m`](./matlab/stereoBM_SAD.m)** | Block Matching using Sum of Absolute Differences |
-| **[`stereoBM_Census.m`](./matlab/stereoBM_Census.m)** | Block Matching using Census Transformation |
+| **[`stereoBM_Census.m`](./matlab/stereoBM_Census.m)** | Block Matching using Census Transformation and Hamming distance |
 | **[`stereoDP_LR.m`](./matlab/stereoDP_LR.m)** | Dynamic Programming with Left–Right Axes DSI |
 | **[`stereoDP_LD.m`](./matlab/stereoDP_LD.m)** | Dynamic Programming with Left–Disparity Axes DSI |
 | **[`stereoSGM.m`](./matlab/stereoSGM.m)** | Semi-Global Matching |
@@ -43,7 +43,7 @@ Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includ
 | Filename | Description |
 | --- | --- |
 | **[`stereoBM_SAD.py`](./python/stereoBM_SAD.py)** | Block Matching using Sum of Absolute Differences |
-| **[`stereoBM_Census.py`](./python/stereoBM_Census.py)** | Block Matching using Census Transformation |
+| **[`stereoBM_Census.py`](./python/stereoBM_Census.py)** | Block Matching using Census Transformation and Hamming distance |
 | **[`stereoDP_LR.py`](./python/stereoDP_LR.py)** | Dynamic Programming with Left–Right Axes DSI |
 | **[`stereoDP_LD.py`](./python/stereoDP_LD.py)** | Dynamic Programming with Left–Disparity Axes DSI |
 | **[`stereoSGM.py`](./python/stereoSGM.py)** | Semi-Global Matching |
