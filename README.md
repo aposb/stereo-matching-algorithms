@@ -26,15 +26,15 @@ Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includ
 
 | Filename | Description |
 | --- | --- |
-| **[`BlockMatching1.m`](./matlab/BlockMatching1.m)** | Block Matching using Sum of Absolute Differences |
-| **[`BlockMatching2.m`](./matlab/BlockMatching2.m)** | Block Matching using Census Transformation |
-| **[`DynamicProgramming1.m`](./matlab/DynamicProgramming1.m)** | Dynamic Programming with Left–Right Axes DSI |
-| **[`DynamicProgramming2.m`](./matlab/DynamicProgramming2.m)** | Dynamic Programming with Left–Disparity Axes DSI |
-| **[`SemiGlobalMatching.m`](./matlab/SemiGlobalMatching.m)** | Semi-Global Matching |
-| **[`SemiGlobalBlockMatching.m`](./matlab/SemiGlobalBlockMatching.m)** | Semi-Global Block Matching |
-| **[`BeliefPropagation1.m`](./matlab/BeliefPropagation1.m)** | Belief Propagation with *Accelerated* Message Update Schedule |
-| **[`BeliefPropagation2.m`](./matlab/BeliefPropagation2.m)** | Belief Propagation with *Synchronous* Message Update Schedule |
-| **[`BeliefPropagation3.m`](./matlab/BeliefPropagation3.m)** | Belief Propagation with *Synchronous* Message Update Schedule (different approach) |
+| **[`stereoBM_SAD.m`](./matlab/stereoBM_SAD.m)** | Block Matching using Sum of Absolute Differences |
+| **[`stereoBM_Census.m`](./matlab/stereoBM_Census.m)** | Block Matching using Census Transformation |
+| **[`stereoDP_LR.m`](./matlab/stereoDP_LR.m)** | Dynamic Programming with Left–Right Axes DSI |
+| **[`stereoDP_LD.m`](./matlab/stereoDP_LD.m)** | Dynamic Programming with Left–Disparity Axes DSI |
+| **[`stereoSGM.m`](./matlab/stereoSGM.m)** | Semi-Global Matching |
+| **[`stereoSGBM.m`](./matlab/stereoSGBM.m)** | Semi-Global Block Matching |
+| **[`stereoBP_Accel.m`](./matlab/stereoBP_Accel.m)** | Belief Propagation with *Accelerated* Message Update Schedule |
+| **[`stereoBP_Synch.m`](./matlab/stereoBP_Synch.m)** | Belief Propagation with *Synchronous* Message Update Schedule |
+| **[`stereoBP_Synch2.m`](./matlab/stereoBP_Synch2.m)** | Belief Propagation with *Synchronous* Message Update Schedule (different approach) |
 
 ### Python Implementations
 
@@ -42,15 +42,15 @@ Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includ
 
 | Filename | Description |
 | --- | --- |
-| **[`BlockMatching1.py`](./python/BlockMatching1.py)** | Block Matching using Sum of Absolute Differences |
-| **[`BlockMatching2.py`](./python/BlockMatching2.py)** | Block Matching using Census Transformation |
-| **[`DynamicProgramming1.py`](./python/DynamicProgramming1.py)** | Dynamic Programming with Left–Right Axes DSI |
-| **[`DynamicProgramming2.py`](./python/DynamicProgramming2.py)** | Dynamic Programming with Left–Disparity Axes DSI |
-| **[`SemiGlobalMatching.py`](./python/SemiGlobalMatching.py)** | Semi-Global Matching |
-| **[`SemiGlobalBlockMatching.py`](./python/SemiGlobalBlockMatching.py)** | Semi-Global Block Matching |
-| **[`BeliefPropagation1.py`](./python/BeliefPropagation1.py)** | Belief Propagation with *Accelerated* Message Update Schedule |
-| **[`BeliefPropagation2.py`](./python/BeliefPropagation2.py)** | Belief Propagation with *Synchronous* Message Update Schedule |
-| **[`BeliefPropagation3.py`](./python/BeliefPropagation3.py)** | Belief Propagation with *Synchronous* Message Update Schedule (different approach) |
+| **[`stereoBM_SAD.py`](./python/stereoBM_SAD.py)** | Block Matching using Sum of Absolute Differences |
+| **[`stereoBM_Census.py`](./python/stereoBM_Census.py)** | Block Matching using Census Transformation |
+| **[`stereoDP_LR.py`](./python/stereoDP_LR.py)** | Dynamic Programming with Left–Right Axes DSI |
+| **[`stereoDP_LD.py`](./python/stereoDP_LD.py)** | Dynamic Programming with Left–Disparity Axes DSI |
+| **[`stereoSGM.py`](./python/stereoSGM.py)** | Semi-Global Matching |
+| **[`stereoSGBM.py`](./python/stereoSGBM.py)** | Semi-Global Block Matching |
+| **[`stereoBP_Accel.py`](./python/stereoBP_Accel.py)** | Belief Propagation with *Accelerated* Message Update Schedule |
+| **[`stereoBP_Synch.py`](./python/stereoBP_Synch.py)** | Belief Propagation with *Synchronous* Message Update Schedule |
+| **[`stereoBP_Synch2.py`](./python/stereoBP_Synch2.py)** | Belief Propagation with *Synchronous* Message Update Schedule (different approach) |
 
 ## Installation
 
