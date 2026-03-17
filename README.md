@@ -27,7 +27,7 @@ Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includ
 | Filename | Description |
 | --- | --- |
 | **[`stereoBM_SAD.m`](./matlab/stereoBM_SAD.m)** | Block Matching using Sum of Absolute Differences |
-| **[`stereoBM_Census.m`](./matlab/stereoBM_Census.m)** | Block Matching using Census Transformation and Hamming distance |
+| **[`stereoBM_Census.m`](./matlab/stereoBM_Census.m)** | Block Matching using Census Transformation and Hamming Distance |
 | **[`stereoDP_LR.m`](./matlab/stereoDP_LR.m)** | Dynamic Programming with Left–Right Axes DSI |
 | **[`stereoDP_LD.m`](./matlab/stereoDP_LD.m)** | Dynamic Programming with Left–Disparity Axes DSI |
 | **[`stereoSGM.m`](./matlab/stereoSGM.m)** | Semi-Global Matching |
@@ -43,7 +43,7 @@ Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includ
 | Filename | Description |
 | --- | --- |
 | **[`stereoBM_SAD.py`](./python/stereoBM_SAD.py)** | Block Matching using Sum of Absolute Differences |
-| **[`stereoBM_Census.py`](./python/stereoBM_Census.py)** | Block Matching using Census Transformation and Hamming distance |
+| **[`stereoBM_Census.py`](./python/stereoBM_Census.py)** | Block Matching using Census Transformation and Hamming Distance |
 | **[`stereoDP_LR.py`](./python/stereoDP_LR.py)** | Dynamic Programming with Left–Right Axes DSI |
 | **[`stereoDP_LD.py`](./python/stereoDP_LD.py)** | Dynamic Programming with Left–Disparity Axes DSI |
 | **[`stereoSGM.py`](./python/stereoSGM.py)** | Semi-Global Matching |
@@ -79,19 +79,19 @@ Below are the disparity maps produced from the **Tsukuba stereo pair**.
 
 ### Block Matching (SAD)
 
-![Block Matching (SAD) Disparity Map](results/disparityBM1.png)
+![Block Matching (SAD) Disparity Map](results/disparityBM_SAD.png)
 
 ### Block Matching (Census)
 
-![Block Matching (Census) Disparity Map](results/disparityBM2.png)
+![Block Matching (Census) Disparity Map](results/disparityBM_Census.png)
 
 ### Dynamic Programming (Left-Right)
 
-![Dynamic Programming (Left-Right) Disparity Map](results/disparityDP1.png)
+![Dynamic Programming (Left-Right) Disparity Map](results/disparityDP_LR.png)
 
 ### Dynamic Programming (Left-Disparity)
 
-![Dynamic Programming (Left-Disparity) Disparity Map](results/disparityDP2.png)
+![Dynamic Programming (Left-Disparity) Disparity Map](results/disparityDP_LD.png)
 
 ### Semi-Global Matching
 
@@ -103,11 +103,11 @@ Below are the disparity maps produced from the **Tsukuba stereo pair**.
 
 ### Belief Propagation (Accelerated)
 
-![Belief Propagation (Accelerated) Disparity Map](results/disparityBP1.png)
+![Belief Propagation (Accelerated) Disparity Map](results/disparityBP_Accel.png)
 
 ### Belief Propagation (Synchronous)
 
-![Belief Propagation (Synchronous) Disparity Map](results/disparityBP2.png)
+![Belief Propagation (Synchronous) Disparity Map](results/disparityBP_Synch.png)
 
 The two different approaches to Belief Propagation with Synchronous message update schedule produce same results.
 
