@@ -4,6 +4,7 @@
 import numpy as np
 import cv2 as cv
 import matplotlib.pyplot as plt
+from shiftArray import shiftArray
 
 # Set parameters
 dispLevels = 16 #disparity range: 0 to dispLevels-1
@@ -24,12 +25,15 @@ rightImg = cv.GaussianBlur(rightImg,(5,5),0.6)
 # Get the size
 (rows,cols) = leftImg.shape
 
+# Convert to int32
+leftImg = leftImg.astype(np.int32)
+rightImg = rightImg.astype(np.int32)
+
 # Compute pixel-based matching cost (data cost)
-rightImgExpanded = np.zeros((rows,cols+dispLevels-1),dtype=np.int32)
-rightImgExpanded[:,dispLevels-1:] = rightImg
 dataCost = np.zeros((rows,cols,dispLevels),dtype=np.int32)
 for d in range(dispLevels):
-    rightImgShifted = rightImgExpanded[:,dispLevels-1-d:cols+dispLevels-1-d]
+    rightImgShifted = shiftArray(rightImg,[0,d])
+    #rightImgShifted = np.roll(rightImg,d,1) #less accurate, better performances
     dataCost[:,:,d] = dataCostComputation(leftImg-rightImgShifted)
 
 # Aggregate the matching cost
@@ -48,6 +52,6 @@ plt.show(block=False)
 plt.pause(0.01)
 
 # Save disparity map
-cv.imwrite("disparity.png",dispImg)
+cv.imwrite("disparityBM_SAD.png",dispImg)
 
 plt.show()

@@ -4,6 +4,7 @@
 import numpy as np
 import cv2 as cv
 import matplotlib.pyplot as plt
+from shiftArray import shiftArray
 
 MAX_INT = 2147483647
 
@@ -26,12 +27,12 @@ rightImg = cv.imread("right.png",cv.IMREAD_GRAYSCALE)
 leftImg = cv.GaussianBlur(leftImg,(5,5),0.6)
 rightImg = cv.GaussianBlur(rightImg,(5,5),0.6)
 
+# Get the size
+(rows,cols) = leftImg.shape
+
 # Convert to int32
 leftImg = leftImg.astype(np.int32)
 rightImg = rightImg.astype(np.int32)
-
-# Get the size
-(rows,cols) = leftImg.shape
 
 D = MAX_INT*np.ones((cols+1,cols+1)) #minimum costs
 T = np.zeros((cols+1,cols+1)) #transitions
@@ -104,6 +105,6 @@ plt.show(block=False)
 plt.pause(0.01)
 
 # Save disparity map
-cv.imwrite("disparity.png",dispImg)
+cv.imwrite("disparityDP_LR.png",dispImg)
 
 plt.show()
