@@ -18,39 +18,19 @@ Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includ
 
 - The algorithms are optimized for performance using matrix operations and other techniques
 
-## Structure
+## Algorithms
 
-### MATLAB Implementations
-
-> Inside `matlab` folder
-
-| Filename | Description |
-| --- | --- |
-| **[`stereoBM_SAD.m`](./matlab/stereoBM_SAD.m)** | Block Matching using Sum of Absolute Differences |
-| **[`stereoBM_Census.m`](./matlab/stereoBM_Census.m)** | Block Matching using Census Transformation and Hamming Distance |
-| **[`stereoDP_LR.m`](./matlab/stereoDP_LR.m)** | Dynamic Programming with Left–Right Axes DSI |
-| **[`stereoDP_LD.m`](./matlab/stereoDP_LD.m)** | Dynamic Programming with Left–Disparity Axes DSI |
-| **[`stereoSGM.m`](./matlab/stereoSGM.m)** | Semi-Global Matching |
-| **[`stereoSGBM.m`](./matlab/stereoSGBM.m)** | Semi-Global Block Matching |
-| **[`stereoBP_Accel.m`](./matlab/stereoBP_Accel.m)** | Belief Propagation with *Accelerated* Message Update Schedule |
-| **[`stereoBP_Synch.m`](./matlab/stereoBP_Synch.m)** | Belief Propagation with *Synchronous* Message Update Schedule |
-| **[`stereoBP_Synch2.m`](./matlab/stereoBP_Synch2.m)** | Belief Propagation with *Synchronous* Message Update Schedule (different approach) |
-
-### Python Implementations
-
-> Inside `python` folder
-
-| Filename | Description |
-| --- | --- |
-| **[`stereoBM_SAD.py`](./python/stereoBM_SAD.py)** | Block Matching using Sum of Absolute Differences |
-| **[`stereoBM_Census.py`](./python/stereoBM_Census.py)** | Block Matching using Census Transformation and Hamming Distance |
-| **[`stereoDP_LR.py`](./python/stereoDP_LR.py)** | Dynamic Programming with Left–Right Axes DSI |
-| **[`stereoDP_LD.py`](./python/stereoDP_LD.py)** | Dynamic Programming with Left–Disparity Axes DSI |
-| **[`stereoSGM.py`](./python/stereoSGM.py)** | Semi-Global Matching |
-| **[`stereoSGBM.py`](./python/stereoSGBM.py)** | Semi-Global Block Matching |
-| **[`stereoBP_Accel.py`](./python/stereoBP_Accel.py)** | Belief Propagation with *Accelerated* Message Update Schedule |
-| **[`stereoBP_Synch.py`](./python/stereoBP_Synch.py)** | Belief Propagation with *Synchronous* Message Update Schedule |
-| **[`stereoBP_Synch2.py`](./python/stereoBP_Synch2.py)** | Belief Propagation with *Synchronous* Message Update Schedule (different approach) |
+| Filename | Description | Implementations |
+| --- | --- | --- |
+| **`stereoBM_SAD`** | Block Matching using Sum of Absolute Differences | [MATLAB](./matlab/stereoBM_SAD.m) / [Python](./python/stereoBM_SAD.py) |
+| **`stereoBM_Census`** | Block Matching using Census Transformation and Hamming Distance | [MATLAB](./matlab/stereoBM_Census.m) / [Python](./python/stereoBM_Census.py) |
+| **`stereoDP_LR`** | Dynamic Programming with Left–Right Axes DSI | [MATLAB](./matlab/stereoDP_LR.m) / [Python](./python/stereoDP_LR.py) |
+| **`stereoDP_LD`** | Dynamic Programming with Left–Disparity Axes DSI | [MATLAB](./matlab/stereoDP_LD.m) / [Python](./python/stereoDP_LD.py) |
+| **`stereoSGM`** | Semi-Global Matching | [MATLAB](./matlab/stereoSGM.m) / [Python](./python/stereoSGM.py) |
+| **`stereoSGBM`** | Semi-Global Block Matching | [MATLAB](./matlab/stereoSGBM.m) / [Python](./python/stereoSGBM.py) |
+| **`stereoBP_Accel`** | Belief Propagation with *Accelerated* Message Update Schedule | [MATLAB](./matlab/stereoBP_Accel.m) / [Python](./python/stereoBP_Accel.py) |
+| **`stereoBP_Synch`** | Belief Propagation with *Synchronous* Message Update Schedule | [MATLAB](./matlab/stereoBP_Synch.m) / [Python](./python/stereoBP_Synch.py) |
+| **`stereoBP_Synch2`** | Belief Propagation with *Synchronous* Message Update Schedule (different approach) | [MATLAB](./matlab/stereoBP_Synch2.m) / [Python](./python/stereoBP_Synch2.py) |
 
 ## Installation
 
@@ -111,7 +91,7 @@ Below are the disparity maps produced from the **Tsukuba stereo pair**.
 
 The two different approaches to Belief Propagation with Synchronous message update schedule produce same results.
 
-## Useful Links
+## Links
 
 - Project repository: https://github.com/aposb/stereo-matching-algorithms
 
