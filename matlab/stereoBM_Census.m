@@ -16,32 +16,25 @@ rightImg = imgaussfilt(rightImg,0.6,'FilterSize',5);
 % Get the size
 [rows,cols] = size(leftImg);
 
-% Expand images
-r = floor(windowSize/2);
-leftExpanded = zeros(rows+windowSize-1,cols+windowSize-1,'uint8');
-leftExpanded(1+r:rows+r,1+r:cols+r) = leftImg;
-rightExpanded = zeros(rows+windowSize-1,cols+windowSize-1,'uint8');
-rightExpanded(1+r:rows+r,1+r:cols+r) = rightImg;
-
 % Census transformation
 leftCensus = zeros(rows,cols,windowSize^2,'logical');
 rightCensus = zeros(rows,cols,windowSize^2,'logical');
-for dy = 0:windowSize-1
-    leftExpandedX = leftExpanded(1+dy:rows+dy,:);
-    rightExpandedX = rightExpanded(1+dy:rows+dy,:);
-    for dx = 0:windowSize-1
-        i = dy*windowSize+dx+1;
-        leftCensus(:,:,i) = leftExpandedX(:,1+dx:cols+dx)>=leftImg;
-        rightCensus(:,:,i) = rightExpandedX(:,1+dx:cols+dx)>=rightImg;
+b = -ceil(windowSize/2)+1;
+e = floor(windowSize/2);
+i = 1;
+for dy = b:e
+    for dx = b:e
+        leftCensus(:,:,i) = shiftArray(leftImg,[dy,dx])>=leftImg;
+        rightCensus(:,:,i) = shiftArray(rightImg,[dy,dx])>=rightImg;
+        i = i+1;
     end
 end
 
 % Compute window-based matching cost (data cost)
-rightCensusExpanded = zeros(rows,cols+dispLevels-1,windowSize^2,'logical');
-rightCensusExpanded(:,dispLevels:end,:) = rightCensus;
 dataCost = zeros(rows,cols,dispLevels,'int32');
 for d = 0:dispLevels-1
-    rightCensusShifted = rightCensusExpanded(:,dispLevels-d:cols+dispLevels-1-d,:);
+    rightCensusShifted = shiftArray(rightCensus,[0,d,0]);
+    %rightCensusShifted = circshift(rightCensus,d,2); %less accurate, better performances
     dataCost(:,:,d+1) = sum(leftCensus~=rightCensusShifted,3); %Hamming distances
 end
 
@@ -57,4 +50,4 @@ dispImg = uint8(dispMap*scaleFactor);
 figure; imshow(dispImg)
 
 % Save disparity map
-imwrite(dispImg,'disparity.png')
+imwrite(dispImg,'disparityBM_Census.png')

@@ -24,13 +24,16 @@ rightImg = imgaussfilt(rightImg,0.6,'FilterSize',5);
 % Get the size
 [rows,cols] = size(leftImg);
 
+% Convert to int32
+leftImg = int32(leftImg);
+rightImg = int32(rightImg);
+
 % Compute pixel-based matching cost (data cost)
-rightImgExpanded = zeros(rows,cols+dispLevels-1,'int32');
-rightImgExpanded(:,dispLevels:end) = rightImg;
 dataCost = zeros(rows,cols,dispLevels,'int32');
 for d = 0:dispLevels-1
-    rightImgShifted = rightImgExpanded(:,dispLevels-d:cols+dispLevels-1-d);
-    dataCost(:,:,d+1) = dataCostComputation(int32(leftImg)-rightImgShifted);
+    rightImgShifted = shiftArray(rightImg,[0,d]);
+    %rightImgShifted = circshift(rightImg,d,2); %less accurate, better performances
+    dataCost(:,:,d+1) = dataCostComputation(leftImg-rightImgShifted);
 end
 
 % Compute smoothness cost
@@ -67,4 +70,4 @@ dispImg = uint8(dispMap*scaleFactor);
 figure; imshow(dispImg)
 
 % Save disparity map
-imwrite(dispImg,'disparity.png')
+imwrite(dispImg,'disparityDP_LD.png')

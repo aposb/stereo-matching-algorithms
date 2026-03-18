@@ -103,4 +103,4 @@ dispImg = uint8(dispMap*scaleFactor);
 figure; imshow(dispImg)
 
 % Save disparity map
-imwrite(dispImg,'disparity.png')
+imwrite(dispImg,'disparityDP_LR.png')
