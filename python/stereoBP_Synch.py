@@ -13,8 +13,8 @@ lambda_ = 5 #weight of smoothness cost
 trunc = 2 #truncation of smoothness cost
 
 # Define data cost computation
-dataCostComputation = lambda differences: np.absolute(differences) #absolute differences
-#dataCostComputation = lambda differences: differences**2 #square differences
+dataCostComputation = lambda left,right: np.absolute(left-right) #absolute differences
+#dataCostComputation = lambda left,right: (left-right)**2 #square differences
 
 # Define smoothness cost computation
 smoothnessCostComputation = lambda differences: lambda_*np.minimum(np.absolute(differences),trunc)
@@ -39,7 +39,7 @@ dataCost = np.zeros((rows,cols,dispLevels),dtype=np.int32)
 for d in range(dispLevels):
     rightImgShifted = shiftArray(rightImg,[0,d])
     #rightImgShifted = np.roll(rightImg,d,1) #less accurate, better performances
-    dataCost[:,:,d] = dataCostComputation(leftImg-rightImgShifted)
+    dataCost[:,:,d] = dataCostComputation(leftImg,rightImgShifted)
 
 # Compute smoothness cost
 d = np.arange(dispLevels)

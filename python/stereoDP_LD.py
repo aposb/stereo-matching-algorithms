@@ -11,8 +11,8 @@ dispLevels = 16 #disparity range: 0 to dispLevels-1
 Pocc = 5 #occlusion penalty
 
 # Define data cost computation
-dataCostComputation = lambda differences: np.absolute(differences) #absolute differences
-#dataCostComputation = lambda differences: differences**2 #square differences
+dataCostComputation = lambda left,right: np.absolute(left-right) #absolute differences
+#dataCostComputation = lambda left,right: (left-right)**2 #square differences
 
 # Define smoothness cost computation
 smoothnessCostComputation = lambda differences: Pocc*np.absolute(differences)
@@ -38,7 +38,7 @@ dataCost = np.zeros((rows,cols,dispLevels),dtype=np.int32)
 for d in range(dispLevels):
     rightImgShifted = shiftArray(rightImg,[0,d])
     #rightImgShifted = np.roll(rightImg,d,1) #less accurate, better performances
-    dataCost[:,:,d] = dataCostComputation(leftImg-rightImgShifted)
+    dataCost[:,:,d] = dataCostComputation(leftImg,rightImgShifted)
 
 # Compute smoothness cost
 d = np.arange(dispLevels)

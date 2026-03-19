@@ -14,8 +14,8 @@ Pocc = 5 #occlusion penalty
 Pdisc = 1 #vertical discontinuity penalty
 
 # Define data cost computation
-dataCostComputation = lambda differences: np.absolute(differences) #absolute differences
-#dataCostComputation = lambda differences: differences**2 #square differences
+dataCostComputation = lambda left,right: np.absolute(left-right) #absolute differences
+#dataCostComputation = lambda left,right: (left-right)**2 #square differences
 
 # Predefined smoothness cost computation: Pocc*np.absolute(differences)
 
@@ -44,7 +44,7 @@ for y in range(rows):
     # Compute matching cost
     L = leftImg[y,:] #left scanline
     R = rightImg[y,:] #right scanline
-    C = dataCostComputation(L-R[np.newaxis,:].T) #matching cost
+    C = dataCostComputation(L,R[np.newaxis,:].T) #matching cost
 
     # Keep previous transitions
     T0 = T
