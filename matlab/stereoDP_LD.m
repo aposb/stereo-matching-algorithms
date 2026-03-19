@@ -6,8 +6,8 @@ dispLevels = 16; %disparity range: 0 to dispLevels-1
 Pocc = 5; %occlusion penalty
 
 % Define data cost computation
-dataCostComputation = @(differences) abs(differences); %absolute differences
-%dataCostComputation = @(differences) differences.^2; %square differences
+dataCostComputation = @(left,right) abs(left-right); %absolute differences
+%dataCostComputation = @(left,right) (left-right).^2; %square differences
 
 % Define smoothness cost computation
 smoothnessCostComputation = @(differences) Pocc*abs(differences);
@@ -33,7 +33,7 @@ dataCost = zeros(rows,cols,dispLevels,'int32');
 for d = 0:dispLevels-1
     rightImgShifted = shiftArray(rightImg,[0,d]);
     %rightImgShifted = circshift(rightImg,d,2); %less accurate, better performances
-    dataCost(:,:,d+1) = dataCostComputation(leftImg-rightImgShifted);
+    dataCost(:,:,d+1) = dataCostComputation(leftImg,rightImgShifted);
 end
 
 % Compute smoothness cost

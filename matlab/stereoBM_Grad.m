@@ -1,4 +1,4 @@
-% Stereo Matching using Block Matching (Sum of Absolute Differences)
+% Stereo Matching using Block Matching (Image Gradients)
 % Computes a disparity map from a rectified stereo pair using Block Matching
 
 % Set parameters
@@ -6,8 +6,7 @@ dispLevels = 16; %disparity range: 0 to dispLevels-1
 windowSize = 5;
 
 % Define data cost computation
-dataCostComputation = @(left,right) abs(left-right); %absolute differences
-%dataCostComputation = @(left,right) (left-right).^2; %square differences
+dataCostComputation = @(leftX,leftY,rightX,rightY) abs(leftX-rightX)+abs(leftY-rightY); %magnitude
 
 % Load left and right images in grayscale
 leftImg = rgb2gray(imread('left.png'));
@@ -25,11 +24,15 @@ leftImg = int32(leftImg);
 rightImg = int32(rightImg);
 
 % Compute pixel-based matching cost (data cost)
+[leftGradX,leftGradY] = imgradientxy(leftImg,'sobel');
+[rightGradX,rightGradY] = imgradientxy(rightImg,'sobel');
 dataCost = zeros(rows,cols,dispLevels,'int32');
 for d = 0:dispLevels-1
-    rightImgShifted = shiftArray(rightImg,[0,d]);
-    %rightImgShifted = circshift(rightImg,d,2); %less accurate, better performances
-    dataCost(:,:,d+1) = dataCostComputation(leftImg,rightImgShifted);
+    rightGradXShifted = shiftArray(rightGradX,[0,d]);
+    rightGradYShifted = shiftArray(rightGradY,[0,d]);
+    %rightGradXShifted = circshift(rightGradX,d,2); %less accurate, better performances
+    %rightGradYShifted = circshift(rightGradY,d,2); %less accurate, better performances
+    dataCost(:,:,d+1) = dataCostComputation(leftGradX,leftGradY,rightGradXShifted,rightGradYShifted);
 end
 
 % Aggregate the matching cost
@@ -47,4 +50,4 @@ dispImg = uint8(dispMap*scaleFactor);
 figure; imshow(dispImg)
 
 % Save disparity map
-imwrite(dispImg,'disparityBM_SAD.png')
+imwrite(dispImg,'disparityBM_Grad.png')

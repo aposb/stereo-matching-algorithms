@@ -7,8 +7,8 @@ Pocc = 5; %occlusion penalty
 Pdisc = 1; %vertical discontinuity penalty
 
 % Define data cost computation
-dataCostComputation = @(differences) abs(differences); %absolute differences
-%dataCostComputation = @(differences) differences.^2; %square differences
+dataCostComputation = @(left,right) abs(left-right); %absolute differences
+%dataCostComputation = @(left,right) (left-right).^2; %square differences
 
 % Predefined smoothness cost computation: Pocc*abs(differences)
 
@@ -37,7 +37,7 @@ for y = 1:rows
     % Compute matching cost
     L = leftImg(y,:); %left scanline
     R = rightImg(y,:); %right scanline
-    C = dataCostComputation(L-R.'); %matching cost
+    C = dataCostComputation(L,R.'); %matching cost
 
     % Keep previous transitions
     T0 = T;

@@ -7,8 +7,8 @@ iterations = 60;
 lambda = 5; %weight of smoothness cost
 
 % Define data cost computation
-dataCostComputation = @(differences) abs(differences); %absolute differences
-%dataCostComputation = @(differences) differences.^2; %square differences
+dataCostComputation = @(left,right) abs(left-right); %absolute differences
+%dataCostComputation = @(left,right) (left-right).^2; %square differences
 
 % Predefined smoothness cost computation: lambda*min(abs(differences),2)
 
@@ -32,7 +32,7 @@ dataCost = zeros(rows,cols,dispLevels,'int32');
 for d = 0:dispLevels-1
     rightImgShifted = shiftArray(rightImg,[0,d]);
     %rightImgShifted = circshift(rightImg,d,2); %less accurate, better performances
-    dataCost(:,:,d+1) = dataCostComputation(leftImg-rightImgShifted);
+    dataCost(:,:,d+1) = dataCostComputation(leftImg,rightImgShifted);
 end
 
 % Initialize messages

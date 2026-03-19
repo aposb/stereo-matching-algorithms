@@ -1,12 +1,13 @@
-% Stereo Matching using Block Matching (Census Transformation)
+% Stereo Matching using Block Matching (Sum of Absolute Differences) - a different aproach
 % Computes a disparity map from a rectified stereo pair using Block Matching
 
 % Set parameters
 dispLevels = 16; %disparity range: 0 to dispLevels-1
-windowSize = 25;
+windowSize = 5;
 
 % Define data cost computation
-dataCostComputation = @(left,right) sum(left~=right,3); %Hamming distances
+dataCostComputation = @(left,right) sum(abs(left-right),3); %sum of absolute differences
+%dataCostComputation = @(left,right) sum((left-right).^2,3); %sum of square differences
 
 % Load left and right images in grayscale
 leftImg = rgb2gray(imread('left.png'));
@@ -20,8 +21,8 @@ rightImg = imgaussfilt(rightImg,0.6,'FilterSize',5);
 [rows,cols] = size(leftImg);
 
 % Create block vectors
-leftBlocks = zeros(rows,cols,windowSize^2,'uint8');
-rightBlocks = zeros(rows,cols,windowSize^2,'uint8');
+leftBlocks = zeros(rows,cols,windowSize^2,'int32');
+rightBlocks = zeros(rows,cols,windowSize^2,'int32');
 b = -ceil(windowSize/2)+1;
 e = floor(windowSize/2);
 i = 1;
@@ -33,16 +34,12 @@ for dy = b:e
     end
 end
 
-% Census transformation
-leftCensus = leftBlocks>=leftImg;
-rightCensus = rightBlocks>=rightImg;
-
 % Compute window-based matching cost (data cost)
 dataCost = zeros(rows,cols,dispLevels,'int32');
 for d = 0:dispLevels-1
-    rightCensusShifted = shiftArray(rightCensus,[0,d,0]);
-    %rightCensusShifted = circshift(rightCensus,d,2); %less accurate, better performances
-    dataCost(:,:,d+1) = dataCostComputation(leftCensus,rightCensusShifted);
+    rightBlocksShifted = shiftArray(rightBlocks,[0,d,0]);
+    %rightBlocksShifted = circshift(rightBlocks,d,2); %less accurate, better performances
+    dataCost(:,:,d+1) = dataCostComputation(leftBlocks,rightBlocksShifted);
 end
 
 % Compute the disparity map
@@ -57,4 +54,4 @@ dispImg = uint8(dispMap*scaleFactor);
 figure; imshow(dispImg)
 
 % Save disparity map
-imwrite(dispImg,'disparityBM_Census.png')
+imwrite(dispImg,'disparityBM_SAD2.png')

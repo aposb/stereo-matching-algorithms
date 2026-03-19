@@ -1,12 +1,12 @@
-% Stereo Matching using Block Matching (Census Transformation)
+% Stereo Matching using Block Matching (Normalized Cross-Correlation)
 % Computes a disparity map from a rectified stereo pair using Block Matching
 
 % Set parameters
 dispLevels = 16; %disparity range: 0 to dispLevels-1
-windowSize = 25;
+windowSize = 5;
 
 % Define data cost computation
-dataCostComputation = @(left,right) sum(left~=right,3); %Hamming distances
+dataCostComputation = @(left,right) sum(left.*right,3)./sqrt(sum(left.^2,3).*sum(right.^2,3)); %NCC
 
 % Load left and right images in grayscale
 leftImg = rgb2gray(imread('left.png'));
@@ -20,8 +20,8 @@ rightImg = imgaussfilt(rightImg,0.6,'FilterSize',5);
 [rows,cols] = size(leftImg);
 
 % Create block vectors
-leftBlocks = zeros(rows,cols,windowSize^2,'uint8');
-rightBlocks = zeros(rows,cols,windowSize^2,'uint8');
+leftBlocks = zeros(rows,cols,windowSize^2,'double');
+rightBlocks = zeros(rows,cols,windowSize^2,'double');
 b = -ceil(windowSize/2)+1;
 e = floor(windowSize/2);
 i = 1;
@@ -33,20 +33,18 @@ for dy = b:e
     end
 end
 
-% Census transformation
-leftCensus = leftBlocks>=leftImg;
-rightCensus = rightBlocks>=rightImg;
-
 % Compute window-based matching cost (data cost)
-dataCost = zeros(rows,cols,dispLevels,'int32');
+leftNormalized = leftBlocks-mean(leftBlocks,3);
+rightNormalized = rightBlocks-mean(rightBlocks,3);
+dataCost = zeros(rows,cols,dispLevels,'double');
 for d = 0:dispLevels-1
-    rightCensusShifted = shiftArray(rightCensus,[0,d,0]);
-    %rightCensusShifted = circshift(rightCensus,d,2); %less accurate, better performances
-    dataCost(:,:,d+1) = dataCostComputation(leftCensus,rightCensusShifted);
+    rightNormalizedShifted = shiftArray(rightNormalized,[0,d,0]);
+    %rightNormalizedShifted = circshift(rightNormalized,d,2); %less accurate, better performances
+    dataCost(:,:,d+1) = dataCostComputation(leftNormalized,rightNormalizedShifted);
 end
 
 % Compute the disparity map
-[~,ind] = min(dataCost,[],3);
+[~,ind] = max(dataCost,[],3);
 dispMap = ind-1;
 
 % Normalize the disparity map for display
@@ -57,4 +55,4 @@ dispImg = uint8(dispMap*scaleFactor);
 figure; imshow(dispImg)
 
 % Save disparity map
-imwrite(dispImg,'disparityBM_Census.png')
+imwrite(dispImg,'disparityBM_NCC.png')
