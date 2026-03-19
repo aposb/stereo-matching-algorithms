@@ -19,13 +19,11 @@ rightImg = imgaussfilt(rightImg,0.6,'FilterSize',5);
 % Get the size
 [rows,cols] = size(leftImg);
 
-% Convert to int32
-leftImg = int32(leftImg);
-rightImg = int32(rightImg);
-
-% Compute pixel-based matching cost (data cost)
+% Compute image gradients
 [leftGradX,leftGradY] = imgradientxy(leftImg,'sobel');
 [rightGradX,rightGradY] = imgradientxy(rightImg,'sobel');
+
+% Compute pixel-based matching cost (data cost)
 dataCost = zeros(rows,cols,dispLevels,'int32');
 for d = 0:dispLevels-1
     rightGradXShifted = shiftArray(rightGradX,[0,d]);
