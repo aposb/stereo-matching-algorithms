@@ -23,14 +23,17 @@ Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includ
 | Filename | Description | Implementations |
 | --- | --- | --- |
 | **`stereoBM_SAD`** | Block Matching using Sum of Absolute Differences | [MATLAB](./matlab/stereoBM_SAD.m) / [Python](./python/stereoBM_SAD.py) |
+| **`stereoBM_SAD2`** | Block Matching using Sum of Absolute Differences (different approach) | [MATLAB](./matlab/stereoBM_SAD2.m) / [Python](./python/stereoBM_SAD2.py) |
+| **`stereoBM_Grad`** | Block Matching using Image Gradients | [MATLAB](./matlab/stereoBM_Grad.m) / [Python](./python/stereoBM_Grad.py) |
+| **`stereoBM_NCC`** | Block Matching using Normalized Cross-Correlation | [MATLAB](./matlab/stereoBM_NCC.m) / [Python](./python/stereoBM_NCC.py) |
 | **`stereoBM_Census`** | Block Matching using Census Transformation and Hamming Distance | [MATLAB](./matlab/stereoBM_Census.m) / [Python](./python/stereoBM_Census.py) |
 | **`stereoDP_LR`** | Dynamic Programming with Left–Right Axes DSI | [MATLAB](./matlab/stereoDP_LR.m) / [Python](./python/stereoDP_LR.py) |
 | **`stereoDP_LD`** | Dynamic Programming with Left–Disparity Axes DSI | [MATLAB](./matlab/stereoDP_LD.m) / [Python](./python/stereoDP_LD.py) |
 | **`stereoSGM`** | Semi-Global Matching | [MATLAB](./matlab/stereoSGM.m) / [Python](./python/stereoSGM.py) |
 | **`stereoSGBM`** | Semi-Global Block Matching | [MATLAB](./matlab/stereoSGBM.m) / [Python](./python/stereoSGBM.py) |
-| **`stereoBP_Accel`** | Belief Propagation with *Accelerated* Message Update Schedule | [MATLAB](./matlab/stereoBP_Accel.m) / [Python](./python/stereoBP_Accel.py) |
 | **`stereoBP_Synch`** | Belief Propagation with *Synchronous* Message Update Schedule | [MATLAB](./matlab/stereoBP_Synch.m) / [Python](./python/stereoBP_Synch.py) |
 | **`stereoBP_Synch2`** | Belief Propagation with *Synchronous* Message Update Schedule (different approach) | [MATLAB](./matlab/stereoBP_Synch2.m) / [Python](./python/stereoBP_Synch2.py) |
+| **`stereoBP_Accel`** | Belief Propagation with *Accelerated* Message Update Schedule | [MATLAB](./matlab/stereoBP_Accel.m) / [Python](./python/stereoBP_Accel.py) |
 
 ## Installation
 
@@ -49,7 +52,8 @@ This project contains MATLAB and Python scripts, each implementing a stereo matc
 To use a different stereo pair, replace these two images with your own. In this case, you must also adjust the **disparity levels** parameter in the script you are running.
 You may optionally modify other parameters as needed. If the input images contain little or no noise, it is recommended not to use the Gaussian filter.
 
-The results between MATLAB and Python implementation are similar.
+- The results between MATLAB and Python implementation are similar.
+- The different approaches produce same results.
 
 ## Results
 
@@ -60,6 +64,14 @@ Below are the disparity maps produced from the **Tsukuba stereo pair**.
 ### Block Matching (SAD)
 
 ![Block Matching (SAD) Disparity Map](results/disparityBM_SAD.png)
+
+### Block Matching (Gradient)
+
+![Block Matching (Gradient) Disparity Map](results/disparityBM_Grad.png)
+
+### Block Matching (NCC)
+
+![Block Matching (NCC) Disparity Map](results/disparityBM_NCC.png)
 
 ### Block Matching (Census)
 
@@ -81,15 +93,13 @@ Below are the disparity maps produced from the **Tsukuba stereo pair**.
 
 ![Semi-Global Block Matching Disparity Map](results/disparitySGBM.png)
 
-### Belief Propagation (Accelerated)
-
-![Belief Propagation (Accelerated) Disparity Map](results/disparityBP_Accel.png)
-
 ### Belief Propagation (Synchronous)
 
 ![Belief Propagation (Synchronous) Disparity Map](results/disparityBP_Synch.png)
 
-The two different approaches to Belief Propagation with Synchronous message update schedule produce same results.
+### Belief Propagation (Accelerated)
+
+![Belief Propagation (Accelerated) Disparity Map](results/disparityBP_Accel.png)
 
 ## Links
 
