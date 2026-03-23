@@ -2,6 +2,7 @@
 # Computes a disparity map from a rectified stereo pair using Block Matching
 
 import math
+import time
 import numpy as np
 import cv2 as cv
 import matplotlib.pyplot as plt
@@ -14,6 +15,9 @@ windowSize = 5
 # Define data cost computation
 dataCostComputation = lambda left,right: np.sum(np.absolute(left-right),axis=2) #sum of absolute differences
 #dataCostComputation = lambda left,right: np.sum((left-right)**2,axis=2) #sum of square differences
+
+# Start timer
+timerVal = time.time()
 
 # Load left and right images in grayscale
 leftImg = cv.imread("left.png",cv.IMREAD_GRAYSCALE)
@@ -59,5 +63,9 @@ plt.pause(0.01)
 
 # Save disparity map
 cv.imwrite("disparityBM_SAD2.png",dispImg)
+
+# Compute and display elapsed time
+elapsedTime = time.time()-timerVal
+print("Elapsed time is {:.2f} seconds.".format(elapsedTime))
 
 plt.show()

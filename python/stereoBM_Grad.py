@@ -1,6 +1,7 @@
 # Stereo Matching using Block Matching (Image Gradients)
 # Computes a disparity map from a rectified stereo pair using Block Matching
 
+import time
 import numpy as np
 import cv2 as cv
 import matplotlib.pyplot as plt
@@ -12,6 +13,9 @@ windowSize = 5
 
 # Define data cost computation
 dataCostComputation = lambda leftX,leftY,rightX,rightY: np.absolute(leftX-rightX)+np.absolute(leftY-rightY) #magnitude
+
+# Start timer
+timerVal = time.time()
 
 # Load left and right images in grayscale
 leftImg = cv.imread("left.png",cv.IMREAD_GRAYSCALE)
@@ -56,5 +60,9 @@ plt.pause(0.01)
 
 # Save disparity map
 cv.imwrite("disparityBM_Grad.png",dispImg)
+
+# Compute and display elapsed time
+elapsedTime = time.time()-timerVal
+print("Elapsed time is {:.2f} seconds.".format(elapsedTime))
 
 plt.show()

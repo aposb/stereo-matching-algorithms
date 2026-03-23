@@ -1,6 +1,7 @@
 # Stereo Matching using Dynamic Programming (with Left-Disparity Axes DSI)
 # Computes a disparity map from a rectified stereo pair using Dynamic Programming
 
+import time
 import numpy as np
 import cv2 as cv
 import matplotlib.pyplot as plt
@@ -17,6 +18,9 @@ dataCostComputation = lambda left,right: np.absolute(left-right) #absolute diffe
 # Define smoothness cost computation
 smoothnessCostComputation = lambda differences: Pocc*np.absolute(differences)
 #smoothnessCostComputation = lambda differences: Pocc*np.minimum(np.absolute(differences),2) #alternative
+
+# Start timer
+timerVal = time.time()
 
 # Load left and right images in grayscale
 leftImg = cv.imread("left.png",cv.IMREAD_GRAYSCALE)
@@ -73,5 +77,9 @@ plt.pause(0.01)
 
 # Save disparity map
 cv.imwrite("disparityDP_LD.png",dispImg)
+
+# Compute and display elapsed time
+elapsedTime = time.time()-timerVal
+print("Elapsed time is {:.2f} seconds.".format(elapsedTime))
 
 plt.show()
