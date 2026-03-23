@@ -55,6 +55,25 @@ You may optionally modify other parameters as needed. If the input images contai
 - The results between MATLAB and Python implementation are similar.
 - The different approaches produce same results.
 
+## Performances
+
+The following running times were measured on a Windows PC with a CPU AMD A10-7850K and 8GB of RAM.
+
+| Filename | MATLAB (sec) | Python (sec) | Notes |
+| --- | --- | --- | --- |
+| **`stereoBM_SAD`** | 0.12 | 0.06 | image display disabled |
+| **`stereoBM_SAD2`** | 0.69 | 0.84 | image display disabled |
+| **`stereoBM_Grad`** | 0.21 | 0.14 | image display disabled |
+| **`stereoBM_NCC`** | 2.00 | 1.90 | image display disabled |
+| **`stereoBM_Census`** | 5.24 | 7.30 | image display disabled |
+| **`stereoDP_LR`** | 0.33 | 5.52 | image display disabled |
+| **`stereoDP_LD`** | 0.13 | 0.27 | image display disabled |
+| **`stereoSGM`** | 0.82 | 2.48 | image display disabled |
+| **`stereoSGBM`** | 0.83 | 2.45 | image display disabled |
+| **`stereoBP_Synch`** | 11.15 | 21.22 | image display disabled, 20 iterations |
+| **`stereoBP_Synch2`** | 4.75 | 16.35 | image display disabled, 20 iterations |
+| **`stereoBP_Accel`** | 9.41 | 14.63 | image display disabled, 20 iterations |
+
 ## Results
 
 Below are the disparity maps produced from the **Tsukuba stereo pair**.
