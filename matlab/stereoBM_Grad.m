@@ -8,6 +8,9 @@ windowSize = 5;
 % Define data cost computation
 dataCostComputation = @(leftX,leftY,rightX,rightY) abs(leftX-rightX)+abs(leftY-rightY); %magnitude
 
+% Start timer
+timerVal = tic();
+
 % Load left and right images in grayscale
 leftImg = rgb2gray(imread('left.png'));
 rightImg = rgb2gray(imread('right.png'));
@@ -49,3 +52,7 @@ figure; imshow(dispImg)
 
 % Save disparity map
 imwrite(dispImg,'disparityBM_Grad.png')
+
+% Compute and display elapsed time
+elapsedTime = toc(timerVal);
+fprintf('Elapsed time is %.2f\n',elapsedTime)

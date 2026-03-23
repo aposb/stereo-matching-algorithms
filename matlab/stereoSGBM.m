@@ -14,6 +14,9 @@ dataCostComputation = @(left,right) abs(left-right); %absolute differences
 % Define smoothness cost computation
 smoothnessCostComputation = @(differences) (abs(differences)==1)*p1+(abs(differences)>=2)*p2;
 
+% Start timer
+timerVal = tic();
+
 % Load left and right images in grayscale
 leftImg = rgb2gray(imread('left.png'));
 rightImg = rgb2gray(imread('right.png'));
@@ -156,3 +159,7 @@ figure; imshow(dispImg)
 
 % Save disparity map
 imwrite(dispImg,'disparitySGBM.png')
+
+% Compute and display elapsed time
+elapsedTime = toc(timerVal);
+fprintf('Elapsed time is %.2f\n',elapsedTime)

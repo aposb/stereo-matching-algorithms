@@ -8,6 +8,9 @@ windowSize = 5;
 % Define data cost computation
 dataCostComputation = @(left,right) sum(left.*right,3)./sqrt(sum(left.^2,3).*sum(right.^2,3)); %NCC
 
+% Start timer
+timerVal = tic();
+
 % Load left and right images in grayscale
 leftImg = rgb2gray(imread('left.png'));
 rightImg = rgb2gray(imread('right.png'));
@@ -56,3 +59,7 @@ figure; imshow(dispImg)
 
 % Save disparity map
 imwrite(dispImg,'disparityBM_NCC.png')
+
+% Compute and display elapsed time
+elapsedTime = toc(timerVal);
+fprintf('Elapsed time is %.2f\n',elapsedTime)
