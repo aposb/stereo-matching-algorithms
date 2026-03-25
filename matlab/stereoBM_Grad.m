@@ -6,7 +6,7 @@ dispLevels = 16; %disparity range: 0 to dispLevels-1
 windowSize = 5;
 
 % Define data cost computation
-dataCostComputation = @(leftX,leftY,rightX,rightY) abs(leftX-rightX)+abs(leftY-rightY); %magnitude
+dataCostComputation = @(left,right) sum(abs(left-right),3); %magnitude
 
 % Start timer
 timerVal = tic();
@@ -23,17 +23,17 @@ rightImg = imgaussfilt(rightImg,0.6,'FilterSize',5);
 [rows,cols] = size(leftImg);
 
 % Compute image gradients
-[leftGradX,leftGradY] = imgradientxy(leftImg,'sobel');
-[rightGradX,rightGradY] = imgradientxy(rightImg,'sobel');
+leftGrad = zeros(rows,cols,2,'double');
+[leftGrad(:,:,1),leftGrad(:,:,2)] = imgradientxy(leftImg,'sobel');
+rightGrad = zeros(rows,cols,2,'double');
+[rightGrad(:,:,1),rightGrad(:,:,2)] = imgradientxy(rightImg,'sobel');
 
 % Compute pixel-based matching cost (data cost)
-dataCost = zeros(rows,cols,dispLevels,'int32');
+dataCost = zeros(rows,cols,dispLevels,'double');
 for d = 0:dispLevels-1
-    rightGradXShifted = shiftArray(rightGradX,[0,d]);
-    rightGradYShifted = shiftArray(rightGradY,[0,d]);
-    %rightGradXShifted = circshift(rightGradX,d,2); %less accurate, better performances
-    %rightGradYShifted = circshift(rightGradY,d,2); %less accurate, better performances
-    dataCost(:,:,d+1) = dataCostComputation(leftGradX,leftGradY,rightGradXShifted,rightGradYShifted);
+    %rightGradShifted = shiftArray(rightGrad,[0,d,0]);
+    rightGradShifted = circshift(rightGrad,d,2); %less accurate, better performances
+    dataCost(:,:,d+1) = dataCostComputation(leftGrad,rightGradShifted);
 end
 
 % Aggregate the matching cost
@@ -53,6 +53,6 @@ figure; imshow(dispImg)
 % Save disparity map
 imwrite(dispImg,'disparityBM_Grad.png')
 
-% Compute and display elapsed time
+% Stop timer and display running time
 elapsedTime = toc(timerVal);
-fprintf('Elapsed time is %.2f\n',elapsedTime)
+fprintf('Running time: %.2f seconds\n',elapsedTime)

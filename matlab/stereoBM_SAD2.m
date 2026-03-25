@@ -40,8 +40,8 @@ end
 % Compute window-based matching cost (data cost)
 dataCost = zeros(rows,cols,dispLevels,'int32');
 for d = 0:dispLevels-1
-    rightBlocksShifted = shiftArray(rightBlocks,[0,d,0]);
-    %rightBlocksShifted = circshift(rightBlocks,d,2); %less accurate, better performances
+    %rightBlocksShifted = shiftArray(rightBlocks,[0,d,0]);
+    rightBlocksShifted = circshift(rightBlocks,d,2); %less accurate, better performances
     dataCost(:,:,d+1) = dataCostComputation(leftBlocks,rightBlocksShifted);
 end
 
@@ -59,6 +59,6 @@ figure; imshow(dispImg)
 % Save disparity map
 imwrite(dispImg,'disparityBM_SAD2.png')
 
-% Compute and display elapsed time
+% Stop timer and display running time
 elapsedTime = toc(timerVal);
-fprintf('Elapsed time is %.2f\n',elapsedTime)
+fprintf('Running time: %.2f seconds\n',elapsedTime)

@@ -108,6 +108,6 @@ figure; imshow(dispImg)
 % Save disparity map
 imwrite(dispImg,'disparityDP_LR.png')
 
-% Compute and display elapsed time
+% Stop timer and display running time
 elapsedTime = toc(timerVal);
-fprintf('Elapsed time is %.2f\n',elapsedTime)
+fprintf('Running time: %.2f seconds\n',elapsedTime)

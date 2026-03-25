@@ -1,9 +1,9 @@
-% Stereo Matching using Block Matching (Sum of Absolute Differences)
+% Stereo Matching using Block Matching (Rank Transformation)
 % Computes a disparity map from a rectified stereo pair using Block Matching
 
 % Set parameters
 dispLevels = 16; %disparity range: 0 to dispLevels-1
-windowSize = 5;
+windowSize = 25;
 
 % Define data cost computation
 dataCostComputation = @(left,right) abs(left-right); %absolute differences
@@ -23,20 +23,31 @@ rightImg = imgaussfilt(rightImg,0.6,'FilterSize',5);
 % Get the size
 [rows,cols] = size(leftImg);
 
-% Convert to int32
-leftImg = int32(leftImg);
-rightImg = int32(rightImg);
-
-% Compute pixel-based matching cost (data cost)
-dataCost = zeros(rows,cols,dispLevels,'int32');
-for d = 0:dispLevels-1
-    %rightImgShifted = shiftArray(rightImg,[0,d]);
-    rightImgShifted = circshift(rightImg,d,2); %less accurate, better performances
-    dataCost(:,:,d+1) = dataCostComputation(leftImg,rightImgShifted);
+% Create block vectors
+leftBlocks = zeros(rows,cols,windowSize^2,'uint8');
+rightBlocks = zeros(rows,cols,windowSize^2,'uint8');
+b = -ceil(windowSize/2)+1;
+e = floor(windowSize/2);
+i = 1;
+for dy = b:e
+    for dx = b:e
+        leftBlocks(:,:,i) = shiftArray(leftImg,[dy,dx]);
+        rightBlocks(:,:,i) = shiftArray(rightImg,[dy,dx]);
+        i = i+1;
+    end
 end
 
-% Aggregate the matching cost
-dataCost = int32(convn(dataCost,ones(windowSize,windowSize,1),'same'));
+% Rank transformation
+leftRank = sum(leftBlocks>=leftImg,3);
+rightRank = sum(rightBlocks>=rightImg,3);
+
+% Compute window-based matching cost (data cost)
+dataCost = zeros(rows,cols,dispLevels,'int32');
+for d = 0:dispLevels-1
+    %rightRankShifted = shiftArray(rightRank,[0,d]);
+    rightRankShifted = circshift(rightRank,d,2); %less accurate, better performances
+    dataCost(:,:,d+1) = dataCostComputation(leftRank,rightRankShifted);
+end
 
 % Compute the disparity map
 [~,ind] = min(dataCost,[],3);
@@ -50,7 +61,7 @@ dispImg = uint8(dispMap*scaleFactor);
 figure; imshow(dispImg)
 
 % Save disparity map
-imwrite(dispImg,'disparityBM_SAD.png')
+imwrite(dispImg,'disparityBM_Rank.png')
 
 % Stop timer and display running time
 elapsedTime = toc(timerVal);

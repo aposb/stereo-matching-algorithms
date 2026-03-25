@@ -35,8 +35,8 @@ rightImg = int32(rightImg);
 % Compute pixel-based matching cost (data cost)
 dataCost = zeros(rows,cols,dispLevels,'int32');
 for d = 0:dispLevels-1
-    rightImgShifted = shiftArray(rightImg,[0,d]);
-    %rightImgShifted = circshift(rightImg,d,2); %less accurate, better performances
+    %rightImgShifted = shiftArray(rightImg,[0,d]);
+    rightImgShifted = circshift(rightImg,d,2); %less accurate, better performances
     dataCost(:,:,d+1) = dataCostComputation(leftImg,rightImgShifted);
 end
 
@@ -124,6 +124,6 @@ ylabel('Energy')
 % Save disparity map
 imwrite(dispImg,'disparityBP_Accel.png')
 
-% Compute and display elapsed time
+% Stop timer and display running time
 elapsedTime = toc(timerVal);
-fprintf('Elapsed time is %.2f\n',elapsedTime)
+fprintf('Running time: %.2f seconds\n',elapsedTime)

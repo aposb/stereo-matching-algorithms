@@ -1,12 +1,13 @@
-% Stereo Matching using Block Matching (Normalized Cross-Correlation)
+% Stereo Matching using Block Matching (Adaptive Support Weights)
 % Computes a disparity map from a rectified stereo pair using Block Matching
 
 % Set parameters
 dispLevels = 16; %disparity range: 0 to dispLevels-1
-windowSize = 5;
+windowSize = 25;
+g = 5; %controls sensitivity to color differences
 
 % Define data cost computation
-dataCostComputation = @(left,right) sum(left.*right,3)./sqrt(sum(left.^2,3).*sum(right.^2,3)); %NCC
+dataCostComputation = @(left,right,weights) sum(abs(left-right).*weights,3);
 
 % Start timer
 timerVal = tic();
@@ -36,18 +37,21 @@ for dy = b:e
     end
 end
 
+% Compute weights
+leftWeights = leftBlocks.*exp(-abs(leftBlocks-double(leftImg))/g);
+rightWeights = rightBlocks.*exp(-abs(rightBlocks-double(rightImg))/g);
+weights = leftWeights.*rightWeights;
+
 % Compute window-based matching cost (data cost)
-leftNormalized = leftBlocks-mean(leftBlocks,3);
-rightNormalized = rightBlocks-mean(rightBlocks,3);
 dataCost = zeros(rows,cols,dispLevels,'double');
 for d = 0:dispLevels-1
-    %rightNormalizedShifted = shiftArray(rightNormalized,[0,d,0]);
-    rightNormalizedShifted = circshift(rightNormalized,d,2); %less accurate, better performances
-    dataCost(:,:,d+1) = dataCostComputation(leftNormalized,rightNormalizedShifted);
+    %rightBlocksShifted = shiftArray(rightBlocks,[0,d,0]);
+    rightBlocksShifted = circshift(rightBlocks,d,2); %less accurate, better performances
+    dataCost(:,:,d+1) = dataCostComputation(leftBlocks,rightBlocksShifted,weights);
 end
 
 % Compute the disparity map
-[~,ind] = max(dataCost,[],3);
+[~,ind] = min(dataCost,[],3);
 dispMap = ind-1;
 
 % Normalize the disparity map for display
@@ -58,7 +62,7 @@ dispImg = uint8(dispMap*scaleFactor);
 figure; imshow(dispImg)
 
 % Save disparity map
-imwrite(dispImg,'disparityBM_NCC.png')
+imwrite(dispImg,'disparityBM_ASW.png')
 
 % Stop timer and display running time
 elapsedTime = toc(timerVal);
