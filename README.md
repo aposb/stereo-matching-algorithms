@@ -26,7 +26,9 @@ Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includ
 | **`stereoBM_SAD2`** | Block Matching using Sum of Absolute Differences (different approach) | [MATLAB](./matlab/stereoBM_SAD2.m) / [Python](./python/stereoBM_SAD2.py) |
 | **`stereoBM_Grad`** | Block Matching using Image Gradients | [MATLAB](./matlab/stereoBM_Grad.m) / [Python](./python/stereoBM_Grad.py) |
 | **`stereoBM_NCC`** | Block Matching using Normalized Cross-Correlation | [MATLAB](./matlab/stereoBM_NCC.m) / [Python](./python/stereoBM_NCC.py) |
+| **`stereoBM_Rank`** | Block Matching using Rank Transformation | [MATLAB](./matlab/stereoBM_Rank.m) / [Python](./python/stereoBM_Rank.py) |
 | **`stereoBM_Census`** | Block Matching using Census Transformation and Hamming Distance | [MATLAB](./matlab/stereoBM_Census.m) / [Python](./python/stereoBM_Census.py) |
+| **`stereoBM_ASW`** | Block Matching using Adaptive Window (Adaptive Support Weights) | [MATLAB](./matlab/stereoBM_ASW.m) / [Python](./python/stereoBM_ASW.py) |
 | **`stereoDP_LR`** | Dynamic Programming with Left–Right Axes DSI | [MATLAB](./matlab/stereoDP_LR.m) / [Python](./python/stereoDP_LR.py) |
 | **`stereoDP_LD`** | Dynamic Programming with Left–Disparity Axes DSI | [MATLAB](./matlab/stereoDP_LD.m) / [Python](./python/stereoDP_LD.py) |
 | **`stereoSGM`** | Semi-Global Matching | [MATLAB](./matlab/stereoSGM.m) / [Python](./python/stereoSGM.py) |
@@ -61,18 +63,20 @@ The following running times were measured on a Windows PC with a CPU AMD A10-785
 
 | Filename | MATLAB (sec) | Python (sec) | Notes |
 | --- | --- | --- | --- |
-| **`stereoBM_SAD`** | 0.12 | 0.06 | image display disabled |
-| **`stereoBM_SAD2`** | 0.69 | 0.84 | image display disabled |
-| **`stereoBM_Grad`** | 0.21 | 0.14 | image display disabled |
-| **`stereoBM_NCC`** | 2.00 | 1.90 | image display disabled |
-| **`stereoBM_Census`** | 5.24 | 7.30 | image display disabled |
-| **`stereoDP_LR`** | 0.33 | 5.52 | image display disabled |
-| **`stereoDP_LD`** | 0.13 | 0.27 | image display disabled |
-| **`stereoSGM`** | 0.82 | 2.48 | image display disabled |
-| **`stereoSGBM`** | 0.83 | 2.45 | image display disabled |
-| **`stereoBP_Synch`** | 11.15 | 21.22 | image display disabled, 20 iterations |
-| **`stereoBP_Synch2`** | 4.75 | 16.35 | image display disabled, 20 iterations |
-| **`stereoBP_Accel`** | 9.41 | 14.63 | image display disabled, 20 iterations |
+| **`stereoBM_SAD`** | 0.10 | 0.08 | image display disabled |
+| **`stereoBM_SAD2`** | 0.48 | 0.81 | image display disabled |
+| **`stereoBM_Grad`** | 0.17 | 0.19 | image display disabled |
+| **`stereoBM_NCC`** | 1.52 | 1.84 | image display disabled |
+| **`stereoBM_Rank`** | 0.77 | 3.70 | image display disabled |
+| **`stereoBM_Census`** | 2.94 | 7.25 | image display disabled |
+| **`stereoBM_ASW`** | 20.58 | 46.11 | image display disabled |
+| **`stereoDP_LR`** | 0.32 | 5.60 | image display disabled |
+| **`stereoDP_LD`** | 0.14 | 0.28 | image display disabled |
+| **`stereoSGM`** | 0.81 | 2.45 | image display disabled |
+| **`stereoSGBM`** | 0.84 | 2.51 | image display disabled |
+| **`stereoBP_Synch`** | 11.16 | 21.00 | image display disabled, 20 iterations |
+| **`stereoBP_Synch2`** | 4.83 | 17.57 | image display disabled, 20 iterations |
+| **`stereoBP_Accel`** | 9.11 | 15.18 | image display disabled, 20 iterations |
 
 ## Results
 
@@ -92,9 +96,17 @@ Below are the disparity maps produced from the **Tsukuba stereo pair**.
 
 ![Block Matching (NCC) Disparity Map](results/disparityBM_NCC.png)
 
+### Block Matching (Rank)
+
+![Block Matching (Rank) Disparity Map](results/disparityBM_Rank.png)
+
 ### Block Matching (Census)
 
 ![Block Matching (Census) Disparity Map](results/disparityBM_Census.png)
+
+### Block Matching (ASW)
+
+![Block Matching (ASW) Disparity Map](results/disparityBM_ASW.png)
 
 ### Dynamic Programming (Left-Right)
 
