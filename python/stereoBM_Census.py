@@ -48,8 +48,8 @@ rightCensus = rightBlocks>=rightImg[:,:,np.newaxis]
 # Compute window-based matching cost (data cost)
 dataCost = np.zeros((rows,cols,dispLevels),dtype=np.int32)
 for d in range(dispLevels):
-    rightCensusShifted = shiftArray(rightCensus,[0,d,0])
-    #rightCensusShifted = np.roll(rightCensus,d,1) #less accurate, better performances
+    #rightCensusShifted = shiftArray(rightCensus,[0,d,0])
+    rightCensusShifted = np.roll(rightCensus,d,1) #less accurate, better performances
     dataCost[:,:,d] = dataCostComputation(leftCensus,rightCensusShifted)
 
 # Compute the disparity map
@@ -67,8 +67,8 @@ plt.pause(0.01)
 # Save disparity map
 cv.imwrite("disparityBM_Census.png",dispImg)
 
-# Compute and display elapsed time
+# Stop timer and display running time
 elapsedTime = time.time()-timerVal
-print("Elapsed time is {:.2f} seconds.".format(elapsedTime))
+print("Running time: {:.2f} seconds".format(elapsedTime))
 
 plt.show()

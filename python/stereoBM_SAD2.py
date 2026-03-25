@@ -45,8 +45,8 @@ for dy in range(b,e):
 # Compute window-based matching cost (data cost)
 dataCost = np.zeros((rows,cols,dispLevels),dtype=np.int32)
 for d in range(dispLevels):
-    rightBlocksShifted = shiftArray(rightBlocks,[0,d,0])
-    #rightBlocksShifted = np.roll(rightBlocks,d,1) #less accurate, better performances
+    #rightBlocksShifted = shiftArray(rightBlocks,[0,d,0])
+    rightBlocksShifted = np.roll(rightBlocks,d,1) #less accurate, better performances
     dataCost[:,:,d] = dataCostComputation(leftBlocks,rightBlocksShifted)
 
 # Compute the disparity map
@@ -64,8 +64,8 @@ plt.pause(0.01)
 # Save disparity map
 cv.imwrite("disparityBM_SAD2.png",dispImg)
 
-# Compute and display elapsed time
+# Stop timer and display running time
 elapsedTime = time.time()-timerVal
-print("Elapsed time is {:.2f} seconds.".format(elapsedTime))
+print("Running time: {:.2f} seconds".format(elapsedTime))
 
 plt.show()

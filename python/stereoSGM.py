@@ -40,8 +40,8 @@ rightImg = rightImg.astype(np.int32)
 # Compute pixel-based matching cost (data cost)
 dataCost = np.zeros((rows,cols,dispLevels),dtype=np.int32)
 for d in range(dispLevels):
-    rightImgShifted = shiftArray(rightImg,[0,d])
-    #rightImgShifted = np.roll(rightImg,d,1) #less accurate, better performances
+    #rightImgShifted = shiftArray(rightImg,[0,d])
+    rightImgShifted = np.roll(rightImg,d,1) #less accurate, better performances
     dataCost[:,:,d] = dataCostComputation(leftImg,rightImgShifted)
 
 # Compute smoothness cost
@@ -151,8 +151,8 @@ plt.pause(0.01)
 # Save disparity map
 cv.imwrite("disparitySGM.png",dispImg)
 
-# Compute and display elapsed time
+# Stop timer and display running time
 elapsedTime = time.time()-timerVal
-print("Elapsed time is {:.2f} seconds.".format(elapsedTime))
+print("Running time: {:.2f} seconds".format(elapsedTime))
 
 plt.show()

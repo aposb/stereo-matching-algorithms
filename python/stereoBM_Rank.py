@@ -1,4 +1,4 @@
-# Stereo Matching using Block Matching (Normalized Cross-Correlation)
+# Stereo Matching using Block Matching (Rank Transformation)
 # Computes a disparity map from a rectified stereo pair using Block Matching
 
 import math
@@ -8,14 +8,13 @@ import cv2 as cv
 import matplotlib.pyplot as plt
 from shiftArray import shiftArray
 
-np.seterr(divide='ignore',invalid='ignore')
-
 # Set parameters
 dispLevels = 16 #disparity range: 0 to dispLevels-1
-windowSize = 5
+windowSize = 25
 
 # Define data cost computation
-dataCostComputation = lambda left,right: np.sum(left*right,axis=2)/np.sqrt(np.sum(left**2,axis=2)*np.sum(right**2,axis=2)) #NCC
+dataCostComputation = lambda left,right: np.absolute(left-right) #absolute differences
+#dataCostComputation = lambda left,right: (left-right)**2 #square differences
 
 # Start timer
 timerVal = time.time()
@@ -32,8 +31,8 @@ rightImg = cv.GaussianBlur(rightImg,(5,5),0.6)
 (rows,cols) = leftImg.shape
 
 # Create block vectors
-leftBlocks = np.zeros((rows,cols,windowSize**2),dtype=np.float64)
-rightBlocks = np.zeros((rows,cols,windowSize**2),dtype=np.float64)
+leftBlocks = np.zeros((rows,cols,windowSize**2),dtype=np.uint8)
+rightBlocks = np.zeros((rows,cols,windowSize**2),dtype=np.uint8)
 b = -math.ceil(windowSize/2)+1
 e = math.floor(windowSize/2)+1
 i = 0
@@ -43,17 +42,19 @@ for dy in range(b,e):
         rightBlocks[:,:,i] = shiftArray(rightImg,[dy,dx])
         i = i+1 
 
+# Rank transformation
+leftRank = np.sum(leftBlocks>=leftImg[:,:,np.newaxis],axis=2)
+rightRank = np.sum(rightBlocks>=rightImg[:,:,np.newaxis],axis=2)
+
 # Compute window-based matching cost (data cost)
-leftNormalized = leftBlocks-np.mean(leftBlocks,axis=2)[:,:,np.newaxis]
-rightNormalized = rightBlocks-np.mean(rightBlocks,axis=2)[:,:,np.newaxis]
-dataCost = np.zeros((rows,cols,dispLevels),dtype=np.float64)
+dataCost = np.zeros((rows,cols,dispLevels),dtype=np.int32)
 for d in range(dispLevels):
-    #rightNormalizedShifted = shiftArray(rightNormalized,[0,d,0])
-    rightNormalizedShifted = np.roll(rightNormalized,d,1) #less accurate, better performances
-    dataCost[:,:,d] = dataCostComputation(leftNormalized,rightNormalizedShifted)
+    #rightRankShifted = shiftArray(rightRank,[0,d])
+    rightRankShifted = np.roll(rightRank,d,1) #less accurate, better performances
+    dataCost[:,:,d] = dataCostComputation(leftRank,rightRankShifted)
 
 # Compute the disparity map
-dispMap = np.argmax(dataCost,axis=2)
+dispMap = np.argmin(dataCost,axis=2)
 
 # Normalize the disparity map for display
 scaleFactor = 256/dispLevels
@@ -65,7 +66,7 @@ plt.show(block=False)
 plt.pause(0.01)
 
 # Save disparity map
-cv.imwrite("disparityBM_NCC.png",dispImg)
+cv.imwrite("disparityBM_Rank.png",dispImg)
 
 # Stop timer and display running time
 elapsedTime = time.time()-timerVal
