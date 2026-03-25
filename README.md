@@ -104,9 +104,9 @@ Below are the disparity maps produced from the **Tsukuba stereo pair**.
 
 ![Block Matching (Census) Disparity Map](results/disparityBM_Census.png)
 
-### Block Matching (ASW)
+### Block Matching (Adaptive)
 
-![Block Matching (ASW) Disparity Map](results/disparityBM_ASW.png)
+![Block Matching (Adaptive) Disparity Map](results/disparityBM_ASW.png)
 
 ### Dynamic Programming (Left-Right)
 
