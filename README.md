@@ -80,8 +80,8 @@ The following running times are in seconds and were measured on a Windows PC wit
 | **`stereoBP_Accel`** | 9.11 | 15.18 | image display disabled, 20 iterations |
 | **`stereoBP_Synch`** | 11.16 | 21.00 | image display disabled, 20 iterations |
 | **`stereoBP_Synch2`** | 4.83 | 17.57 | image display disabled, 20 iterations |
-| **`stereoBP_Bipart`** | 5.90 | 45.79 | image display disabled, 20 iterations |
-| **`stereoICM`** | 1.95 | 23.38 | image display disabled, 20 iterations |
+| **`stereoBP_Bipart`** | 23.38 | 45.79 | image display disabled, 20 iterations |
+| **`stereoICM`** | 1.95 | 5.90 | image display disabled, 20 iterations |
 
 ## Results
 
