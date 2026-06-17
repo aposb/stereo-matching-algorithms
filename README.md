@@ -38,7 +38,7 @@ Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includ
 | **Belief Propagation (Synchronous)** | Belief Propagation with *Synchronous* Message Update Schedule | **[`stereoBP_Synch.m`](./matlab/stereoBP_Synch.m)** | **[`stereoBP_Synch.py`](./python/stereoBP_Synch.py)** |
 | **Belief Propagation (Synchronous)** | Belief Propagation with *Synchronous* Message Update Schedule (different approach) | **[`stereoBP_Synch2.m`](./matlab/stereoBP_Synch2.m)** | **[`stereoBP_Synch2.py`](./python/stereoBP_Synch2.py)** |
 | **Belief Propagation (Bipartite)** | Belief Propagation with *Bipartite* Message Update Schedule | **[`stereoBP_Bipart.m`](./matlab/stereoBP_Bipart.m)** | **[`stereoBP_Bipart.py`](./python/stereoBP_Bipart.py)** |
-| **Iterated Conditional Modes** | Belief Propagation with *Synchronous* Message Update Schedule (different approach) | **[`stereoICM.m`](./matlab/stereoICM.m)** | **[`stereoICM.py`](./python/stereoICM.py)** |
+| **Iterated Conditional Modes** | Iterated Conditional Modes with *Synchronous* Update Schedule | **[`stereoICM.m`](./matlab/stereoICM.m)** | **[`stereoICM.py`](./python/stereoICM.py)** |
 
 ## Installation
 
