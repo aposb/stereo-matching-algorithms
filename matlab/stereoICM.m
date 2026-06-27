@@ -35,8 +35,7 @@ rightImg = int32(rightImg);
 % Compute pixel-based matching cost (data cost)
 dataCost = zeros(rows,cols,dispLevels,'int32');
 for d = 0:dispLevels-1
-    %rightImgShifted = shiftArray(rightImg,[0,d]);
-    rightImgShifted = circshift(rightImg,d,2); %less accurate, better performances
+    rightImgShifted = shiftRight(rightImg,d,0);
     dataCost(:,:,d+1) = dataCostComputation(leftImg,rightImgShifted);
 end
 
@@ -53,10 +52,10 @@ for it = 1:iterations
 
     % Compute local energy
     localEnergy = dataCost + ...
-    smoothnessCostComputation(circshift(dispMap,-1,1)-d) + ...
-    smoothnessCostComputation(circshift(dispMap,-1,2)-d) + ...
-    smoothnessCostComputation(circshift(dispMap,1,1)-d) + ...
-    smoothnessCostComputation(circshift(dispMap,1,2)-d);
+    smoothnessCostComputation(shiftUp(dispMap,1,0)-d) + ...
+    smoothnessCostComputation(shiftLeft(dispMap,1,0)-d) + ...
+    smoothnessCostComputation(shiftDown(dispMap,1,0)-d) + ...
+    smoothnessCostComputation(shiftRight(dispMap,1,0)-d);
 
     % Compute the disparity map
     [~,ind] = min(localEnergy,[],3);

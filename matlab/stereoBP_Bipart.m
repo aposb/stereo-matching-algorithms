@@ -35,8 +35,7 @@ rightImg = int32(rightImg);
 % Compute pixel-based matching cost (data cost)
 dataCost = zeros(rows,cols,dispLevels,'int32');
 for d = 0:dispLevels-1
-    %rightImgShifted = shiftArray(rightImg,[0,d]);
-    rightImgShifted = circshift(rightImg,d,2); %less accurate, better performances
+    rightImgShifted = shiftRight(rightImg,d,0);
     dataCost(:,:,d+1) = dataCostComputation(leftImg,rightImgShifted);
 end
 
@@ -62,22 +61,22 @@ for it = 1:iterations
         % Create messages to up
         msgFromDown2 = dataCost + msgFromDown + msgFromRight + msgFromLeft;
         msgFromDown2 = squeeze(min(msgFromDown2+smoothnessCost4d,[],3));
-        msgFromDown2 = shiftArray(msgFromDown2,[-1,0,0]); %shift up
+        msgFromDown2 = shiftUp(msgFromDown2,1,0);
 
         % Create messages to down
         msgFromUp2 = dataCost + msgFromUp + msgFromRight + msgFromLeft;
         msgFromUp2 = squeeze(min(msgFromUp2+smoothnessCost4d,[],3));
-        msgFromUp2 = shiftArray(msgFromUp2,[1,0,0]); %shift down
+        msgFromUp2 = shiftDown(msgFromUp2,1,0);
 
         % Create messages to right
         msgFromLeft2 = dataCost + msgFromUp + msgFromDown + msgFromLeft;
         msgFromLeft2 = squeeze(min(msgFromLeft2+smoothnessCost4d,[],3));
-        msgFromLeft2 = shiftArray(msgFromLeft2,[0,1,0]); %shift right
+        msgFromLeft2 = shiftRight(msgFromLeft2,1,0);
 
         % Create messages to left
         msgFromRight2 = dataCost + msgFromUp + msgFromDown + msgFromRight;
         msgFromRight2 = squeeze(min(msgFromRight2+smoothnessCost4d,[],3));
-        msgFromRight2 = shiftArray(msgFromRight2,[0,-1,0]); %shift left
+        msgFromRight2 = shiftLeft(msgFromRight2,1,0);
 
         % Send messages
         mask1 = int32(mask~=i); mask2 = int32(mask==i);

@@ -33,8 +33,7 @@ rightImg = int32(rightImg);
 % Compute pixel-based matching cost (data cost)
 dataCost = zeros(rows,cols,dispLevels,'int32');
 for d = 0:dispLevels-1
-    %rightImgShifted = shiftArray(rightImg,[0,d]);
-    rightImgShifted = circshift(rightImg,d,2); %less accurate, better performances
+    rightImgShifted = shiftRight(rightImg,d,0);
     dataCost(:,:,d+1) = dataCostComputation(leftImg,rightImgShifted);
 end
 
@@ -101,10 +100,10 @@ for it = 1:iterations
     end
 
     % Send messages
-    msgFromDown = shiftArray(msgToUp2,[-1,0,0]); %shift up
-    msgFromUp = shiftArray(msgToDown2,[1,0,0]); %shift down
-    msgFromLeft = shiftArray(msgToRight2,[0,1,0]); %shift right
-    msgFromRight = shiftArray(msgToLeft2,[0,-1,0]); %shift left
+    msgFromDown = shiftUp(msgToUp2,1,0);
+    msgFromUp = shiftDown(msgToDown2,1,0);
+    msgFromLeft = shiftRight(msgToRight2,1,0);
+    msgFromRight = shiftLeft(msgToLeft2,1,0);
 
     % Compute belief
     %belief = dataCost + msgFromUp + msgFromDown + msgFromRight + msgFromLeft; %standard belief computation

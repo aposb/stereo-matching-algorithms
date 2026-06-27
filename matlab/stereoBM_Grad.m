@@ -31,8 +31,7 @@ rightGrad = zeros(rows,cols,2,'double');
 % Compute pixel-based matching cost (data cost)
 dataCost = zeros(rows,cols,dispLevels,'double');
 for d = 0:dispLevels-1
-    %rightGradShifted = shiftArray(rightGrad,[0,d,0]);
-    rightGradShifted = circshift(rightGrad,d,2); %less accurate, better performances
+    rightGradShifted = shiftRight(rightGrad,d,0);
     dataCost(:,:,d+1) = dataCostComputation(leftGrad,rightGradShifted);
 end
 

@@ -35,8 +35,7 @@ rightImg = int32(rightImg);
 % Compute pixel-based matching cost (data cost)
 dataCost = zeros(rows,cols,dispLevels,'int32');
 for d = 0:dispLevels-1
-    %rightImgShifted = shiftArray(rightImg,[0,d]);
-    rightImgShifted = circshift(rightImg,d,2); %less accurate, better performances
+    rightImgShifted = shiftRight(rightImg,d,0);
     dataCost(:,:,d+1) = dataCostComputation(leftImg,rightImgShifted);
 end
 

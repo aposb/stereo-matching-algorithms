@@ -31,8 +31,8 @@ e = floor(windowSize/2);
 i = 1;
 for dy = b:e
     for dx = b:e
-        leftBlocks(:,:,i) = shiftArray(leftImg,[dy,dx]);
-        rightBlocks(:,:,i) = shiftArray(rightImg,[dy,dx]);
+        leftBlocks(:,:,i) = shiftYX(leftImg,dy,dx,0);
+        rightBlocks(:,:,i) = shiftYX(rightImg,dy,dx,0);
         i = i+1;
     end
 end
@@ -45,8 +45,7 @@ weights = leftWeights.*rightWeights;
 % Compute window-based matching cost (data cost)
 dataCost = zeros(rows,cols,dispLevels,'double');
 for d = 0:dispLevels-1
-    %rightBlocksShifted = shiftArray(rightBlocks,[0,d,0]);
-    rightBlocksShifted = circshift(rightBlocks,d,2); %less accurate, better performances
+    rightBlocksShifted = shiftRight(rightBlocks,d,0);
     dataCost(:,:,d+1) = dataCostComputation(leftBlocks,rightBlocksShifted,weights);
 end
 

@@ -30,8 +30,8 @@ e = floor(windowSize/2);
 i = 1;
 for dy = b:e
     for dx = b:e
-        leftBlocks(:,:,i) = shiftArray(leftImg,[dy,dx]);
-        rightBlocks(:,:,i) = shiftArray(rightImg,[dy,dx]);
+        leftBlocks(:,:,i) = shiftYX(leftImg,dy,dx,0);
+        rightBlocks(:,:,i) = shiftYX(rightImg,dy,dx,0);
         i = i+1;
     end
 end
@@ -41,8 +41,7 @@ leftNormalized = leftBlocks-mean(leftBlocks,3);
 rightNormalized = rightBlocks-mean(rightBlocks,3);
 dataCost = zeros(rows,cols,dispLevels,'double');
 for d = 0:dispLevels-1
-    %rightNormalizedShifted = shiftArray(rightNormalized,[0,d,0]);
-    rightNormalizedShifted = circshift(rightNormalized,d,2); %less accurate, better performances
+    rightNormalizedShifted = shiftRight(rightNormalized,d,0);
     dataCost(:,:,d+1) = dataCostComputation(leftNormalized,rightNormalizedShifted);
 end
 
